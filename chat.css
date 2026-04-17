@@ -1,0 +1,312 @@
+/* PapiAi Pro Chat Application Styles */
+
+:root {
+    --sidebar-width: 280px;
+    --accent-glow: rgba(138, 43, 226, 0.4);
+    --glass-bg: rgba(5, 5, 10, 0.05);
+    --border-color: rgba(255, 255, 255, 0.03); 
+    --text-dim: #606060;
+    --deep-purple: #0a0514;
+    --alien-green: #002211;
+}
+
+body.pro-app {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #0a0514 0%, #020205 100%);
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+}
+
+#app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    background: #0a0a0a;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.sidebar-header .logo-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+}
+
+.sidebar-header span {
+    color: cyan;
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.sidebar-nav {
+    flex: 1;
+}
+
+.nav-item {
+    width: 100%;
+    padding: 0.7rem 1.0rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    color: #808080;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+}
+
+.nav-item:hover {
+    background: rgba(138, 43, 226, 0.02);
+    color: #fff;
+    border-color: rgba(138, 43, 226, 0.2);
+}
+
+.nav-item.active {
+    background: rgba(138, 43, 226, 0.03);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    color: #fff;
+}
+
+.nav-section {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.history-item {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.user-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff00;
+}
+
+/* Main Chat Viewport */
+.chat-viewport {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #020202;
+}
+
+#pro-visualizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1.0;
+    pointer-events: none;
+    mask-image: linear-gradient(to right, transparent 0%, black 50%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%, black 100%);
+}
+
+.chat-header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+}
+
+.badge {
+    background: transparent;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    color: #5a2792;
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 12px;
+    letter-spacing: 1px;
+}
+
+.model-name {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-dim);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    scroll-behavior: smooth;
+}
+
+.welcome-hero {
+    margin: auto 0;
+    text-align: left;
+    max-width: 500px;
+    padding-left: 4rem;
+}
+
+.welcome-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #fff, cyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome-hero p {
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+/* Input Section */
+.input-container {
+    padding: 2rem 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.input-wrapper {
+    background: rgba(5, 5, 10, 0.05); 
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid;
+    border-image-source: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+    border-image-slice: 1;
+    border-radius: 0px; /* Note: border-image doesn't work with border-radius easily, will use pseudo-element instead if needed */
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
+}
+
+.input-wrapper:focus-within {
+    border-image-source: linear-gradient(135deg, rgba(138, 43, 226, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+    background: rgba(138, 43, 226, 0.02);
+}
+
+#chat-textarea {
+    background: transparent;
+    border: none;
+    color: #fff;
+    resize: none;
+    font-size: 1rem;
+    outline: none;
+    font-family: inherit;
+    width: 100%;
+    min-height: 40px;
+    max-height: 200px;
+}
+
+.input-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.8rem;
+}
+
+.tool-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+}
+
+.send-btn {
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.send-btn:hover {
+    background: cyan;
+    transform: scale(1.05);
+}
+
+.privacy-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+}

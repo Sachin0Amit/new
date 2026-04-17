@@ -1,0 +1,91 @@
+/* Spectral Cursor Styles */
+:root {
+    --cursor-inner-size: 8px;
+    --cursor-outer-size: 30px;
+    --cursor-accent: #8E7CC3; /* Sovereign Purple */
+}
+
+/* Hide the default cursor globally */
+html, body, a, button, [role="button"] {
+    cursor: none !important;
+}
+
+.sov-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 999999;
+}
+
+.sov-cursor--inner {
+    width: var(--cursor-inner-size);
+    height: var(--cursor-inner-size);
+    background-color: var(--cursor-accent);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+.sov-cursor--outer {
+    width: var(--cursor-outer-size);
+    height: var(--cursor-outer-size);
+    border: 1px solid rgba(142, 124, 195, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: 
+        width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+        height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+        background-color 0.4s ease,
+        border-color 0.4s ease;
+}
+
+/* Hover States */
+.sov-cursor.is-hovering .sov-cursor--inner {
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+}
+
+.sov-cursor.is-hovering .sov-cursor--outer {
+    width: 65px;
+    height: 65px;
+    background: rgba(142, 124, 195, 0.15);
+    border-color: rgba(142, 124, 195, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+/* Click Animation State */
+.sov-cursor.is-clicking .sov-cursor--inner {
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.sov-cursor.is-clicking .sov-cursor--outer {
+    transform: translate(-50%, -50%) scale(1.2);
+    background: rgba(142, 124, 195, 0.3);
+}
+
+/* Intelligent Caret / Typing State */
+.sov-cursor.is-typing .sov-cursor--inner {
+    width: 2px;
+    height: 24px;
+    border-radius: 2px;
+    background-color: var(--cursor-accent);
+    animation: caretBlink 1s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sov-cursor.is-typing .sov-cursor--outer {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    border-color: transparent;
+}
+
+@keyframes caretBlink {
+    0% { opacity: 1; transform: translate(-50%, -50%) scaleY(1); }
+    100% { opacity: 0.4; transform: translate(-50%, -50%) scaleY(0.8); }
+}

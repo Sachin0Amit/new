@@ -1,0 +1,38 @@
+# Binaries
+bin/
+sovereign_binary
+sovereign_ops
+sctl
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Local Telemetry & Logs
+*.log
+alpha.log
+beta.log
+gamma.log
+
+# Database & State
+data/
+*.db
+
+# OS/IDE metadata
+.DS_Store
+.idea/
+.vscode/
+.VSCodeCounter/
+*.swp
+*~
+
+# Temporary files
+temp/
+tmp/
+
+# Dependency directories
+vendor/
+
+# Go specific
+go.sum

@@ -1,0 +1,160 @@
+/**
+ * Sovereign Desktop Styles
+ * Obsidian theme with glassmorphic windows and premium gradients.
+ */
+:root {
+    --sov-bg: #0A0A0A;
+    --sov-glass: rgba(255, 255, 255, 0.05);
+    --sov-glass-border: rgba(255, 255, 255, 0.1);
+    --sov-accent: #8E7CC3;
+    --sov-text: #E0E0E0;
+    --sov-text-muted: #888888;
+    --sov-radius: 12px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--sov-bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--sov-text);
+}
+
+#desktop-workspace {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%);
+    overflow: hidden;
+}
+
+.glass-panel {
+    background: var(--sov-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--sov-glass-border);
+    border-radius: var(--sov-radius);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* Windows */
+.sov-window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 150px;
+    transition: box-shadow 0.2s ease;
+}
+
+.sov-window.active {
+    box-shadow: 0 0 20px rgba(142, 124, 195, 0.2);
+    border-color: var(--sov-accent);
+}
+
+.window-header {
+    height: 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--sov-glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    cursor: move;
+    border-radius: var(--sov-radius) var(--sov-radius) 0 0;
+}
+
+.window-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--sov-text-muted);
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.win-btn {
+    background: none;
+    border: none;
+    color: var(--sov-text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.win-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.window-content {
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+    font-size: 0.9rem;
+}
+
+.resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, var(--sov-glass-border) 100%);
+}
+
+/* Taskbar */
+.taskbar {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 54px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10000;
+}
+
+.taskbar-item {
+    width: 42px;
+    height: 42px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.taskbar-item:hover {
+    background: var(--sov-accent);
+    transform: translateY(-4px);
+}
+
+/* Reflex Specific Themes */
+.reflex-entry {
+    animation: slideInReflex 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInReflex {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.reflex-active-glow {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.4) !important;
+}
+
+.reflex-text-gold {
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}

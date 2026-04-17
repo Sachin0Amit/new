@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PapiAi | The Mathematical Sovereign</title>
+    <meta name="description" content="PapiAi - A premium, autonomous 3D AI sovereign. Engineered for privacy, designed for the future.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- External Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="cursor.css">
+
+    <style>
+        :root {
+            --bg-paper: #F5F2ED;
+            --sidebar-bg: #E8E4DB;
+            --text-primary: #1D1D1D;
+            --text-muted: #6B6B6B;
+            --accent-sage: #B4BFA1;
+            --accent-peach: #EAD2C1;
+            --accent-blue: #C1D4EA;
+            --radius-lg: 32px;
+            --radius-xl: 48px;
+            --radius-full: 100px;
+            --transition-slow: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 400vh;
+        }
+
+        /* Background Blobs */
+        .blob-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            animation: move-blobs 20s infinite alternate;
+        }
+
+        @keyframes move-blobs {
+            0% { transform: translate(-10%, -10%) scale(1); }
+            100% { transform: translate(10%, 10%) scale(1.1); }
+        }
+
+        .b-1 { background: var(--accent-sage); top: -200px; left: 10%; }
+        .b-2 { background: var(--accent-peach); bottom: -200px; right: 20%; animation-delay: -5s; }
+        .b-3 { background: var(--accent-blue); top: 30%; left: 40%; animation-delay: -10s; }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 2rem;
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .new-chat-btn:hover {
+            background: rgba(255,255,255,0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-links a {
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition-fast);
+        }
+
+        .sidebar-links a:hover {
+            background: rgba(0,0,0,0.03);
+            color: var(--text-primary);
+        }
+
+        .user-card {
+            background: rgba(255,255,255,0.4);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--text-primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name { font-size: 0.85rem; font-weight: 600; }
+        .user-status { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Main Content */
+        #main-content {
+            margin-left: 260px;
+            position: relative;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 260px;
+            width: calc(100% - 260px);
+            height: 100vh;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            position: relative;
+            z-index: 20;
+        }
+
+        .content-wrapper {
+            max-width: 550px;
+            background: rgba(245, 242, 237, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+
+        .content-wrapper.centered {
+            margin-left: 0;
+            text-align: left;
+        }
+
+        .content-wrapper.right { margin-left: auto; }
+        .content-wrapper.left { margin-right: auto; }
+
+        .serif-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 4.8rem;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .index {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-start;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1.2rem 2.8rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-slow);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.1);
+            color: var(--text-primary);
+        }
+
+        /* Overlays */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .panel {
+            background: var(--bg-paper);
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            border-radius: 40px;
+            padding: 3rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .overlay.active .panel {
+            transform: translateY(0);
+        }
+
+        .close-overlay {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* Chat Specific */
+        .chat-messages {
+            height: calc(100% - 100px);
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+            background: #fff;
+            outline: none;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            opacity: 0.6;
+        }
+
+        .scroll-indicator .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            #main-content, #canvas-container { margin-left: 0; width: 100%; }
+            .section { padding: 0 5%; }
+            .serif-title { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+    <body>
+    <!-- Background Blobs -->
+    <div class="blob-wrapper">
+        <div class="blob b-1"></div>
+        <div class="blob b-2"></div>
+        <div class="blob b-3"></div>
+    </div>
+
+    <!-- UI Overlays -->
+    <div id="chat-overlay" class="overlay">
+        <div class="panel">
+            <button class="close-overlay" onclick="window.closeOverlay('chat-overlay')"><i data-lucide="x"></i></button>
+            <h2 class="serif-title" style="font-size: 2rem; margin-bottom: 1rem;">Sovereign Chat</h2>
+            <div class="chat-messages">
+                <p style="color: var(--text-muted); font-style: italic;">Sovereign Core initialized locally at 127.0.0.1. Waiting for prompt...</p>
+            </div>
+            <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" placeholder="Enter mathematical formula or query...">
+                <button class="btn btn-primary" style="padding: 1rem 2rem;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-overlay" class="overlay">
+        <div class="panel">
+            <button class="close-overlay" onclick="window.closeOverlay('settings-overlay')"><i data-lucide="x"></i></button>
+            <h2 class="serif-title" style="font-size: 2rem;">System Configuration</h2>
+            <div style="margin-top: 2rem;">
+                <p>Local Inference Engine: Titan v1.0.4 (Active)</p>
+                <p>Storage Strategy: Custom LSM Sovereign Vector</p>
+                <p>Privacy Shield: Level 4 (Extreme)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Layout -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="#" class="logo">PapiAi</a>
+            <a href="chat-simple.html" class="new-chat-btn" style="text-decoration:none;">
+                <i data-lucide="plus"></i>
+                <span>New Chat</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="sidebar-links">
+                <a href="javascript:void(0)" onclick="window.toggleSovereignSettings()"><i data-lucide="settings"></i> Settings</a>
+                <a href="javascript:void(0)" onclick="window.toggleSovereignLogin()"><i data-lucide="log-in"></i> Login</a>
+            </div>
+            <div class="user-card">
+                <div class="avatar">S</div>
+                <div class="user-info">
+                    <span class="user-name">Guest User</span>
+                    <span class="user-status">Local Engine Only</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main id="main-content">
+        <!-- 3D Canvas -->
+        <div id="canvas-container"></div>
+
+        <!-- Scroll Content -->
+        <section class="section hero-section">
+            <div class="content-wrapper centered">
+                <h1 class="serif-title">The Sovereign <br> Intelligence.</h1>
+                <p class="subtitle">Built to think. Engineered to last. <br>PapiAi is your local-first autonomous mathematical sovereign.</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">Try PapiAi Pro</button>
+                    <button class="btn btn-secondary">Documentation</button>
+                </div>
+                <div class="scroll-indicator">
+                    <span class="dot"></span>
+                    <span class="text" style="font-size: 0.75rem; letter-spacing: 2px;">Scroll to Initialize</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section feature-section" id="feat-1">
+            <div class="content-wrapper right">
+                <span class="index">01</span>
+                <h2 class="serif-title">Extreme <br> Privacy.</h2>
+                <p>100% local operation. Your data never leaves your hardware. PapiAi runs autonomously on the Chimera Core.</p>
+            </div>
+        </section>
+
+        <section class="section feature-section" id="feat-2">
+            <div class="content-wrapper left">
+                <span class="index">02</span>
+                <h2 class="serif-title">Symbolic <br> Mastery.</h2>
+                <p>Advanced mathematical reasoning with step-by-step transparency. Mastery over complex symbolic derivations.</p>
+            </div>
+        </section>
+
+        <section class="section feature-section" id="feat-3">
+            <div class="content-wrapper right">
+                <span class="index">03</span>
+                <h2 class="serif-title">Titan <br> Inference.</h2>
+                <p>Powered by the Titan C++ Engine, delivering high-throughput local processing with mathematically verified safety.</p>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <div class="content-wrapper centered">
+                <h2 class="serif-title">Unlock Sovereignty.</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">Try PapiAi Pro</button>
+                    <button class="btn btn-secondary">Read Docs</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import Tower from './Tower.js';
+        import Engine from './Engine.js';
+        import { Settings } from './settings.js';
+        import { animate, scroll, stagger, spring } from "https://cdn.jsdelivr.net/npm/motion/+esm";
+        import SovereignCursor from './Cursor.js';
+        import './login.js';
+
+        // --- GLOBAL UI CONTROLS ---
+        window.openOverlay = (id) => {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            animate(`#${id} .panel`, 
+                { opacity: [0, 1], y: [40, 0], scale: [0.95, 1] },
+                { duration: 0.6, easing: spring({ stiffness: 200, damping: 20 }) }
+            );
+        };
+        
+        window.closeOverlay = (id) => {
+            animate(`#${id} .panel`, 
+                { opacity: 0, y: 20, scale: 0.95 },
+                { duration: 0.4 }
+            ).finished.then(() => {
+                document.getElementById(id).classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        };
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            gsap.registerPlugin(ScrollTrigger);
+
+            const engine = new Engine();
+            const tower = new Tower();
+            engine.add(tower.group);
+
+            // --- SOVEREIGN CURSOR ---
+            new SovereignCursor();
+
+            // --- MOTION: HERO ENTRANCE ---
+            animate(".hero-section .serif-title", 
+                { opacity: [0, 1], y: [50, 0] },
+                { duration: 1.2, easing: spring({ stiffness: 100, damping: 15 }) }
+            );
+
+            animate(".hero-section .subtitle, .hero-section .btn-group", 
+                { opacity: [0, 1], y: [30, 0] },
+                { delay: 0.4, duration: 1.0, easing: spring({ stiffness: 100, damping: 20 }) }
+            );
+
+            // --- MOTION: MAGNETIC BUTTONS ---
+            const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .new-chat-btn');
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    animate(btn, { x: x * 0.3, y: y * 0.3 }, { duration: 0.3, easing: "ease-out" });
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    animate(btn, { x: 0, y: 0 }, { duration: 0.8, easing: spring({ stiffness: 300, damping: 10 }) });
+                });
+            });
+
+            // GSAP: Parallax Scrolled Sections
+            document.querySelectorAll('.feature-section').forEach(s => {
+                gsap.from(s.querySelector('.content-wrapper'), {
+                    opacity: 0, 
+                    x: s.querySelector('.content-wrapper').classList.contains('right') ? 50 : -50,
+                    duration: 1.5,
+                    scrollTrigger: { 
+                        trigger: s, 
+                        start: "top 80%", 
+                        end: "top 40%", 
+                        scrub: true 
+                    }
+                });
+            });
+
+            // Parallax with subtle building reaction
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                const y = (e.clientY / window.innerHeight - 0.5) * 2;
+                gsap.to(tower.group.position, { x: x * 0.8, y: -y * 0.8, duration: 2 });
+                gsap.to(engine.camera.position, { x: x * 0.2, y: -y * 0.2, duration: 2 });
+            });
+        });
+    </script>
+</body>
+</html>

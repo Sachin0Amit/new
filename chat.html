@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PapiAi Pro | Sovereign Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="cursor.css">
+</head>
+<body class="pro-app">
+    <div id="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-text">Sovereign <span>Intel</span></div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" id="new-chat">
+                    <span class="icon">+</span> New Chat
+                </button>
+                <div class="nav-section">Recent Intelligence</div>
+                <div class="history-list" id="history-list">
+                    <!-- Dynamic history items -->
+                    <div class="history-item">Quantum Derivation Alpha</div>
+                    <div class="history-item">Biomechanical Struct v2</div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="nav-item" onclick="window.toggleSovereignSettings()">
+                    <span class="icon">⚙</span> Settings
+                </button>
+                <button class="nav-item" onclick="window.toggleSovereignLogin()">
+                    <span class="icon">⚔</span> Login
+                </button>
+                <div class="user-status">
+                    <div class="status-indicator"></div>
+                    Sovereign System Active
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-viewport">
+            <!-- Background Visualizer (Three.js integration point) -->
+            <div id="pro-visualizer"></div>
+
+            <header class="chat-header">
+                <div class="model-info">
+                    <span class="badge">PRO</span>
+                    <span class="model-name">Titan Inference Engine v1.0</span>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn">Export</button>
+                    <button class="action-btn">Secure Share</button>
+                </div>
+            </header>
+
+            <section class="messages-container" id="messages">
+                <div class="welcome-hero">
+                    <h1>Initiate Local Derivation</h1>
+                    <p>Enter your query into the Sovereign Core for hardware-accelerated local inference.</p>
+                </div>
+                <!-- Messages will appear here -->
+            </section>
+
+            <footer class="input-container">
+                <div class="input-wrapper">
+                    <textarea id="chat-textarea" placeholder="Message Sovereign Intelligence..." rows="1"></textarea>
+                    <div class="input-tools">
+                        <button class="tool-btn" title="Hardware Settings" onclick="window.toggleSovereignSettings()">⚙</button>
+                        <button class="tool-btn" title="Local Attachments">+</button>
+                        <button id="send-btn" class="send-btn">↑</button>
+                    </div>
+                </div>
+                <div class="privacy-note">
+                    All data is processed strictly locally on your machine via the Titan Engine.
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script type="module" src="settings.js"></script>
+    <script type="module" src="login.js"></script>
+    <script type="module" src="chat.js"></script>
+</body>
+</html>

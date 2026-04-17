@@ -83,3 +83,4 @@ Each node in a Sovereign fleet is a self-thinking mathematical entity. While nod
 - **Frontend**: Vanilla JS (ES Modules), Lucide Icons, Glassmorphic CSS.
 
 **Sovereign: Intellectual Autonomy. Distributed Mastery. Total Privacy.**
+# new

@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PapiAi Pro | Sovereign Intelligence</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="chat.css">
+    <meta name="description" content="PapiAi Pro - Premium local AI chat with Titan inference engine. 100% private, zero cloud.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1D'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-family='serif' font-size='20' font-weight='700'>P</text></svg>">
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="chat.css">
     <link rel="stylesheet" href="settings.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="cursor.css">
@@ -15,20 +20,18 @@
 <body class="pro-app">
     <div id="app-container">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="pro-sidebar">
             <div class="sidebar-header">
-                <div class="logo-text">Sovereign <span>Intel</span></div>
+                <a href="index.html" class="logo-text" style="text-decoration:none;color:inherit;">Sovereign <span>Intel</span></a>
             </div>
-            
+
             <nav class="sidebar-nav">
                 <button class="nav-item active" id="new-chat">
                     <span class="icon">+</span> New Chat
                 </button>
                 <div class="nav-section">Recent Intelligence</div>
                 <div class="history-list" id="history-list">
-                    <!-- Dynamic history items -->
-                    <div class="history-item">Quantum Derivation Alpha</div>
-                    <div class="history-item">Biomechanical Struct v2</div>
+                    <!-- Dynamic history items populated from localStorage -->
                 </div>
             </nav>
 
@@ -37,8 +40,11 @@
                     <span class="icon">⚙</span> Settings
                 </button>
                 <button class="nav-item" onclick="window.toggleSovereignLogin()">
-                    <span class="icon">⚔</span> Login
+                    <span class="icon">🔑</span> Login
                 </button>
+                <a href="index.html" class="nav-item" style="text-decoration:none;color:inherit;">
+                    <span class="icon">←</span> Home
+                </a>
                 <div class="user-status">
                     <div class="status-indicator"></div>
                     Sovereign System Active
@@ -48,17 +54,24 @@
 
         <!-- Main Chat Area -->
         <main class="chat-viewport">
-            <!-- Background Visualizer (Three.js integration point) -->
+            <!-- Background Visualizer -->
             <div id="pro-visualizer"></div>
 
             <header class="chat-header">
                 <div class="model-info">
-                    <span class="badge">PRO</span>
-                    <span class="model-name">Titan Inference Engine v1.0</span>
+                    <span class="badge">SOVEREIGN</span>
+                    <select id="model-selector" class="model-select">
+                        <option value="local">Sovereign-MLA (Compact)</option>
+                        <option value="mid">Sovereign-MLA (Balanced)</option>
+                        <option value="max">Sovereign-MLA (Extreme)</option>
+                        <option value="prime" selected>Sovereign-Prime (High-Fidelity)</option>
+                        <option value="mist">Sovereign-Mist (Long-Context)</option>
+                        <option value="phi">Sovereign-Phi (Edge-Optimized)</option>
+                    </select>
                 </div>
                 <div class="header-actions">
-                    <button class="action-btn">Export</button>
-                    <button class="action-btn">Secure Share</button>
+                    <button class="action-btn" id="export-btn" title="Export conversation">Export</button>
+                    <button class="action-btn" onclick="window.location.href='chat-simple.html'" title="Simple mode">Simple Mode</button>
                 </div>
             </header>
 
@@ -66,8 +79,12 @@
                 <div class="welcome-hero">
                     <h1>Initiate Local Derivation</h1>
                     <p>Enter your query into the Sovereign Core for hardware-accelerated local inference.</p>
+                    <div class="quick-prompts">
+                        <button class="quick-prompt" data-prompt="Derive the Taylor expansion of e^x cos(x)">Taylor Expansion</button>
+                        <button class="quick-prompt" data-prompt="Explain the architecture of the Sovereign Intelligence Core">System Architecture</button>
+                        <button class="quick-prompt" data-prompt="What mathematical proofs can you verify?">Proof Verification</button>
+                    </div>
                 </div>
-                <!-- Messages will appear here -->
             </section>
 
             <footer class="input-container">
@@ -76,26 +93,21 @@
                     <div class="input-tools">
                         <button class="tool-btn" title="Hardware Settings" onclick="window.toggleSovereignSettings()">⚙</button>
                         <button class="tool-btn" title="Local Attachments">+</button>
-                        <button id="send-btn" class="send-btn">↑</button>
+                        <span class="char-count" id="char-count"></span>
+                        <button id="send-btn" class="send-btn" title="Send (Enter)">↑</button>
                     </div>
                 </div>
                 <div class="privacy-note">
-                    All data is processed strictly locally on your machine via the Titan Engine.
+                    🔒 All data is processed strictly locally on your machine via the Titan Engine.
                 </div>
             </footer>
         </main>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Scripts - Using consistent Three.js version -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script type="module" src="settings.js"></script>
     <script type="module" src="login.js"></script>
     <script type="module" src="chat.js"></script>

@@ -155,6 +155,7 @@ class SovereignSettings {
         document.getElementById('save-sovereign-settings').addEventListener('click', () => {
             this.commitChanges();
             this.toggle(false);
+            this.showToast('Settings saved ✓');
         });
 
         // Toggle handler
@@ -172,6 +173,19 @@ class SovereignSettings {
         this.overlay.addEventListener('click', (e) => {
             if (e.target === this.overlay) this.toggle(false);
         });
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) this.toggle(false);
+        });
+    }
+
+    showToast(message) {
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed;bottom:2rem;right:2rem;background:rgba(10,10,15,0.95);border:1px solid rgba(138,43,226,0.2);color:#fff;padding:0.8rem 1.5rem;border-radius:12px;font-size:0.85rem;z-index:99999;backdrop-filter:blur(20px);box-shadow:0 10px 30px rgba(0,0,0,0.5);animation:toast-fade 0.4s ease;font-family:Outfit,sans-serif;';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
     }
 
     commitChanges() {

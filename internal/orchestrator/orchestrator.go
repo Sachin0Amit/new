@@ -206,6 +206,15 @@ func (o *SovereignOrchestrator) processTask(ctx context.Context, id uuid.UUID) {
 	o.plugins.InvokeHook(models.HookPreProcessing, task)
 	auditor.Record("PRE_PROCESSING", "Dynamic plugin middleware executed", nil)
 
+	// 1.5 Tier Propagation & Assignment
+	if tier, ok := task.Payload["tier"].(string); !ok || tier == "" {
+		// Assign fallback tier if not specified
+		task.Payload["tier"] = "local"
+		auditor.Record("ORCHESTRATION", "No tier specified; defaulting to 'local'", nil)
+	} else {
+		auditor.Record("ORCHESTRATION", fmt.Sprintf("Propagating architectural selection: %s", tier), nil)
+	}
+
 	// 2. Semantic Retrieval Stage (RAG)
 	if _, exists := task.Payload["prompt"]; exists {
 		o.logger.Debug("Initiating semantic memory retrieval", logger.String("task_id", id.String()))

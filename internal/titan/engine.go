@@ -19,15 +19,23 @@ import (
 type Engine struct {
 	ctx    C.TitanContext
 	device string
+	neural *NeuralEngine
 }
 
 func NewEngine(device string) *Engine {
 	cDevice := C.CString(device)
 	defer C.free(unsafe.Pointer(cDevice))
 
+	// Map device tier to neural config
+	tier := "local"
+	if device == "cuda:0" || device == "gpu" {
+		tier = "mid"
+	}
+
 	return &Engine{
 		ctx:    C.titan_init(cDevice),
 		device: device,
+		neural: NewNeuralEngine(tier),
 	}
 }
 
@@ -42,6 +50,14 @@ func (e *Engine) Infer(ctx context.Context, payload map[string]interface{}) (*mo
 		e.handleSensoryPayload(raw)
 	}
 
+	// Route language/reasoning tasks to the Neural Engine
+	prompt, _ := payload["prompt"].(string)
+	taskType, _ := payload["type"].(string)
+	if prompt != "" || taskType == "language" || taskType == "reasoning" || taskType == "code" || taskType == "inference" {
+		return e.neural.Infer(ctx, payload)
+	}
+
+	// Default to Symbolic Inference
 	pStr := fmt.Sprintf("%v", payload)
 	cPayload := C.CString(pStr)
 	defer C.free(unsafe.Pointer(cPayload))
@@ -56,7 +72,7 @@ func (e *Engine) Infer(ctx context.Context, payload map[string]interface{}) (*mo
 		Metrics: models.InferenceMetrics{
 			TokensPerSecond: float64(cRes.tokens_per_sec),
 			MemoryUsedBytes: int64(cRes.memory_used),
-			LatencyMS:      150, // Simplified metric
+			LatencyMS:      150,
 			HardwareAgent:  e.device,
 		},
 		Completed: time.Now(),

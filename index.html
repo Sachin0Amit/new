@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PapiAi | The Mathematical Sovereign</title>
-    <meta name="description" content="PapiAi - A premium, autonomous 3D AI sovereign. Engineered for privacy, designed for the future.">
-    
+    <meta name="description" content="PapiAi - A premium, autonomous 3D AI sovereign. 100% local inference, total privacy, blazing fast.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1D'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-family='serif' font-size='20' font-weight='700'>P</text></svg>">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- External Libs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -20,384 +21,23 @@
     <link rel="stylesheet" href="settings.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="cursor.css">
-
-    <style>
-        :root {
-            --bg-paper: #F5F2ED;
-            --sidebar-bg: #E8E4DB;
-            --text-primary: #1D1D1D;
-            --text-muted: #6B6B6B;
-            --accent-sage: #B4BFA1;
-            --accent-peach: #EAD2C1;
-            --accent-blue: #C1D4EA;
-            --radius-lg: 32px;
-            --radius-xl: 48px;
-            --radius-full: 100px;
-            --transition-slow: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-paper);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 400vh;
-        }
-
-        /* Background Blobs */
-        .blob-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            filter: blur(80px);
-            opacity: 0.5;
-        }
-
-        .blob {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            animation: move-blobs 20s infinite alternate;
-        }
-
-        @keyframes move-blobs {
-            0% { transform: translate(-10%, -10%) scale(1); }
-            100% { transform: translate(10%, 10%) scale(1.1); }
-        }
-
-        .b-1 { background: var(--accent-sage); top: -200px; left: 10%; }
-        .b-2 { background: var(--accent-peach); bottom: -200px; right: 20%; animation-delay: -5s; }
-        .b-3 { background: var(--accent-blue); top: 30%; left: 40%; animation-delay: -10s; }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 260px;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            border-right: 1px solid rgba(0,0,0,0.05);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 100;
-        }
-
-        .logo {
-            font-family: 'EB Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 2rem;
-        }
-
-        .new-chat-btn {
-            width: 100%;
-            padding: 1rem;
-            background: #fff;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .new-chat-btn:hover {
-            background: rgba(255,255,255,0.7);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .sidebar-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar-links a {
-            padding: 0.8rem;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: var(--transition-fast);
-        }
-
-        .sidebar-links a:hover {
-            background: rgba(0,0,0,0.03);
-            color: var(--text-primary);
-        }
-
-        .user-card {
-            background: rgba(255,255,255,0.4);
-            padding: 1rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .avatar {
-            width: 36px;
-            height: 36px;
-            background: var(--text-primary);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-name { font-size: 0.85rem; font-weight: 600; }
-        .user-status { font-size: 0.75rem; color: var(--text-muted); }
-
-        /* Main Content */
-        #main-content {
-            margin-left: 260px;
-            position: relative;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 260px;
-            width: calc(100% - 260px);
-            height: 100vh;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        /* Sections */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 8%;
-            position: relative;
-            z-index: 20;
-        }
-
-        .content-wrapper {
-            max-width: 550px;
-            background: rgba(245, 242, 237, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-        }
-
-        .content-wrapper.centered {
-            margin-left: 0;
-            text-align: left;
-        }
-
-        .content-wrapper.right { margin-left: auto; }
-        .content-wrapper.left { margin-right: auto; }
-
-        .serif-title {
-            font-family: 'EB Garamond', serif;
-            font-size: 4.8rem;
-            line-height: 0.95;
-            margin-bottom: 2rem;
-            letter-spacing: -0.02em;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .index {
-            font-family: 'Manrope', sans-serif;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: flex-start;
-            margin-top: 3rem;
-        }
-
-        .btn {
-            padding: 1.2rem 2.8rem;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition-slow);
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--text-primary);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid rgba(0,0,0,0.1);
-            color: var(--text-primary);
-        }
-
-        /* Overlays */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .panel {
-            background: var(--bg-paper);
-            width: 90%;
-            max-width: 800px;
-            height: 80vh;
-            border-radius: 40px;
-            padding: 3rem;
-            position: relative;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .overlay.active .panel {
-            transform: translateY(0);
-        }
-
-        .close-overlay {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        /* Chat Specific */
-        .chat-messages {
-            height: calc(100% - 100px);
-            overflow-y: auto;
-            margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .chat-input-wrapper {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 1.2rem 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0,0,0,0.05);
-            background: #fff;
-            outline: none;
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            margin-top: 4rem;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-            opacity: 0.6;
-        }
-
-        .scroll-indicator .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--text-primary);
-            border-radius: 50%;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar { display: none; }
-            #main-content, #canvas-container { margin-left: 0; width: 100%; }
-            .section { padding: 0 5%; }
-            .serif-title { font-size: 3.5rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-    <body>
-    <!-- Background Blobs -->
-    <div class="blob-wrapper">
-        <div class="blob b-1"></div>
-        <div class="blob b-2"></div>
-        <div class="blob b-3"></div>
+<body>
+    <!-- Particle Canvas Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- System Pulse Widget -->
+    <div class="system-pulse" id="system-pulse">
+        <div class="pulse-dot"></div>
+        <span class="pulse-label">System Active</span>
+        <span class="pulse-detail" id="pulse-uptime">0s uptime</span>
     </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
 
     <!-- UI Overlays -->
     <div id="chat-overlay" class="overlay">
@@ -427,7 +67,7 @@
     </div>
 
     <!-- Sidebar Layout -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-top">
             <a href="#" class="logo">PapiAi</a>
             <a href="chat-simple.html" class="new-chat-btn" style="text-decoration:none;">
@@ -435,9 +75,10 @@
                 <span>New Chat</span>
             </a>
         </div>
-        
+
         <div class="sidebar-bottom">
             <div class="sidebar-links">
+                <a href="finance.html"><i data-lucide="trending-up"></i> Finance Engine</a>
                 <a href="javascript:void(0)" onclick="window.toggleSovereignSettings()"><i data-lucide="settings"></i> Settings</a>
                 <a href="javascript:void(0)" onclick="window.toggleSovereignLogin()"><i data-lucide="log-in"></i> Login</a>
             </div>
@@ -455,55 +96,197 @@
         <!-- 3D Canvas -->
         <div id="canvas-container"></div>
 
-        <!-- Scroll Content -->
+        <!-- HERO SECTION -->
         <section class="section hero-section">
             <div class="content-wrapper centered">
+                <div class="hero-badge">LOCAL-FIRST AI</div>
                 <h1 class="serif-title">The Sovereign <br> Intelligence.</h1>
                 <p class="subtitle">Built to think. Engineered to last. <br>PapiAi is your local-first autonomous mathematical sovereign.</p>
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">Try PapiAi Pro</button>
-                    <button class="btn btn-secondary">Documentation</button>
+                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">
+                        <span>Try PapiAi Pro</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('architecture').scrollIntoView({behavior:'smooth'})">Documentation</button>
                 </div>
                 <div class="scroll-indicator">
                     <span class="dot"></span>
-                    <span class="text" style="font-size: 0.75rem; letter-spacing: 2px;">Scroll to Initialize</span>
+                    <span class="text">Scroll to Initialize</span>
+                </div>
+                <div class="keyboard-hint">Press <kbd>K</kbd> to start chatting</div>
+            </div>
+        </section>
+
+        <!-- LIVE STATS SECTION -->
+        <section class="section stats-section" id="stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Local Processing</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="0">0</span>
+                    <span class="stat-label">Data Leaks. Ever.</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="50">&lt;0</span><span class="stat-suffix">ms</span>
+                    <span class="stat-label">Inference Latency</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number stat-infinity">∞</span>
+                    <span class="stat-label">Privacy Guarantee</span>
                 </div>
             </div>
         </section>
 
-        <section class="section feature-section" id="feat-1">
-            <div class="content-wrapper right">
-                <span class="index">01</span>
-                <h2 class="serif-title">Extreme <br> Privacy.</h2>
-                <p>100% local operation. Your data never leaves your hardware. PapiAi runs autonomously on the Chimera Core.</p>
+        <!-- FEATURE CARDS SECTION -->
+        <section class="section features-section" id="features">
+            <div class="section-header">
+                <span class="index">Core Capabilities</span>
+                <h2 class="serif-title">Engineered for <br>Absolute Sovereignty.</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+                    <h3>Extreme Privacy</h3>
+                    <p>100% local operation. Your data never leaves your hardware. PapiAi runs autonomously on the Chimera Core with zero telemetry.</p>
+                    <span class="feature-tag">Zero Trust</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="brain"></i></div>
+                    <h3>Symbolic Mastery</h3>
+                    <p>Advanced mathematical reasoning with step-by-step transparency. Complete mastery over complex symbolic derivations and proofs.</p>
+                    <span class="feature-tag">Math Engine</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="zap"></i></div>
+                    <h3>Titan Inference</h3>
+                    <p>Powered by the Titan C++ Engine, delivering high-throughput local processing with mathematically verified computational safety.</p>
+                    <span class="feature-tag">C++ Core</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="git-branch"></i></div>
+                    <h3>Autonomous Reflex</h3>
+                    <p>Real-time self-healing AI that evaluates its own outputs, detects anomalies, and triggers recursive correction loops autonomously.</p>
+                    <span class="feature-tag">Self-Healing</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="database"></i></div>
+                    <h3>Knowledge Mesh</h3>
+                    <p>LSM-tree persistence with BadgerDB. Federated semantic retrieval across distributed P2P fleet with lazy vector gossip sync.</p>
+                    <span class="feature-tag">RAG Pipeline</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-lucide="fingerprint"></i></div>
+                    <h3>Cryptographic Audit</h3>
+                    <p>Every derivation step recorded in an immutable audit trail. Results cryptographically signed with ED25519 proof-of-authenticity.</p>
+                    <span class="feature-tag">Verifiable</span>
+                </div>
             </div>
         </section>
 
-        <section class="section feature-section" id="feat-2">
-            <div class="content-wrapper left">
-                <span class="index">02</span>
-                <h2 class="serif-title">Symbolic <br> Mastery.</h2>
-                <p>Advanced mathematical reasoning with step-by-step transparency. Mastery over complex symbolic derivations.</p>
+        <!-- ARCHITECTURE SECTION -->
+        <section class="section arch-section" id="architecture">
+            <div class="section-header">
+                <span class="index">System Architecture</span>
+                <h2 class="serif-title">Built from <br>First Principles.</h2>
+            </div>
+            <div class="arch-diagram">
+                <div class="arch-layer arch-layer-top">
+                    <div class="arch-node arch-frontend">
+                        <div class="arch-node-icon"><i data-lucide="monitor"></i></div>
+                        <span>Frontend UI</span>
+                        <small>Glassmorphic Interface</small>
+                    </div>
+                </div>
+                <div class="arch-connector"></div>
+                <div class="arch-layer arch-layer-mid">
+                    <div class="arch-node arch-api">
+                        <div class="arch-node-icon"><i data-lucide="server"></i></div>
+                        <span>REST API</span>
+                        <small>Go HTTP + WebSocket</small>
+                    </div>
+                    <div class="arch-node arch-orchestrator">
+                        <div class="arch-node-icon"><i data-lucide="cpu"></i></div>
+                        <span>Orchestrator</span>
+                        <small>Task Pipeline</small>
+                    </div>
+                    <div class="arch-node arch-reflex">
+                        <div class="arch-node-icon"><i data-lucide="refresh-cw"></i></div>
+                        <span>Reflex Engine</span>
+                        <small>Self-Correction</small>
+                    </div>
+                </div>
+                <div class="arch-connector"></div>
+                <div class="arch-layer arch-layer-bottom">
+                    <div class="arch-node arch-titan">
+                        <div class="arch-node-icon"><i data-lucide="flame"></i></div>
+                        <span>Titan Engine</span>
+                        <small>C++ Inference</small>
+                    </div>
+                    <div class="arch-node arch-storage">
+                        <div class="arch-node-icon"><i data-lucide="hard-drive"></i></div>
+                        <span>BadgerDB</span>
+                        <small>LSM-Tree Storage</small>
+                    </div>
+                    <div class="arch-node arch-p2p">
+                        <div class="arch-node-icon"><i data-lucide="network"></i></div>
+                        <span>P2P Gossip</span>
+                        <small>Fleet Mesh</small>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="section feature-section" id="feat-3">
-            <div class="content-wrapper right">
-                <span class="index">03</span>
-                <h2 class="serif-title">Titan <br> Inference.</h2>
-                <p>Powered by the Titan C++ Engine, delivering high-throughput local processing with mathematically verified safety.</p>
-            </div>
-        </section>
-
+        <!-- CTA SECTION -->
         <section class="section cta-section">
             <div class="content-wrapper centered">
                 <h2 class="serif-title">Unlock Sovereignty.</h2>
+                <p class="subtitle">Start your local-first AI journey. No cloud. No compromise.</p>
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">Try PapiAi Pro</button>
-                    <button class="btn btn-secondary">Read Docs</button>
+                    <button class="btn btn-primary" onclick="window.location.href='chat.html'">
+                        <span>Try PapiAi Pro</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='chat-simple.html'">Simple Chat</button>
                 </div>
             </div>
         </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="footer-logo">PapiAi</span>
+                    <p>Intellectual Autonomy.<br>Distributed Mastery.<br>Total Privacy.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="chat.html">PapiAi Pro</a>
+                    <a href="chat-simple.html">Simple Chat</a>
+                    <a href="#features">Features</a>
+                    <a href="#architecture">Architecture</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="#architecture">Documentation</a>
+                    <a href="#">API Reference</a>
+                    <a href="#">Deployment Guide</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>System</h4>
+                    <a href="javascript:void(0)" onclick="window.toggleSovereignSettings()">Settings</a>
+                    <a href="javascript:void(0)" onclick="window.toggleSovereignLogin()">Login</a>
+                    <a href="#">Status</a>
+                    <a href="#">Fleet Monitor</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 PapiAi — Sovereign Intelligence Core</span>
+                <span>Built with Go, C++, and Mathematical Precision</span>
+            </div>
+        </footer>
     </main>
 
     <script type="module">
@@ -514,19 +297,150 @@
         import SovereignCursor from './Cursor.js';
         import './login.js';
 
+        // --- PARTICLE SYSTEM ---
+        function initParticles() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: -1000, y: -1000 };
+            const PARTICLE_COUNT = 80;
+            const CONNECTION_DIST = 150;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.r = Math.random() * 2 + 1;
+                    this.alpha = Math.random() * 0.3 + 0.1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    // Mouse repulsion
+                    const dx = this.x - mouse.x, dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        this.x += dx * 0.02;
+                        this.y += dy * 0.02;
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(180, 191, 161, ${this.alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+            function loop() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                // Connection lines
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < CONNECTION_DIST) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(180, 191, 161, ${0.08 * (1 - dist / CONNECTION_DIST)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        // --- STATS COUNTER ANIMATION ---
+        function initStatsCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                ScrollTrigger.create({
+                    trigger: counter,
+                    start: 'top 85%',
+                    once: true,
+                    onEnter: () => {
+                        gsap.to({ val: 0 }, {
+                            val: target,
+                            duration: 2,
+                            ease: 'power2.out',
+                            onUpdate: function() {
+                                const v = Math.round(this.targets()[0].val);
+                                const suffix = counter.nextElementSibling?.classList.contains('stat-suffix') ? '' : '';
+                                if (target === 0) counter.textContent = '0';
+                                else if (counter.textContent.includes('<')) counter.textContent = '<' + v;
+                                else counter.textContent = v;
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // --- SYSTEM PULSE UPTIME ---
+        function initPulse() {
+            const el = document.getElementById('pulse-uptime');
+            const start = Date.now();
+            setInterval(() => {
+                const s = Math.floor((Date.now() - start) / 1000);
+                const m = Math.floor(s / 60);
+                el.textContent = m > 0 ? `${m}m ${s % 60}s uptime` : `${s}s uptime`;
+            }, 1000);
+        }
+
+        // --- MOBILE MENU ---
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            btn.addEventListener('click', () => {
+                sidebar.classList.toggle('mobile-open');
+                btn.classList.toggle('open');
+            });
+        }
+
+        // --- KEYBOARD SHORTCUT ---
+        function initKeyboard() {
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === 'k' || e.key === 'K') && !e.ctrlKey && !e.metaKey) {
+                    const active = document.activeElement;
+                    if (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA') return;
+                    window.location.href = 'chat-simple.html';
+                }
+            });
+        }
+
         // --- GLOBAL UI CONTROLS ---
         window.openOverlay = (id) => {
             document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            animate(`#${id} .panel`, 
+            animate(`#${id} .panel`,
                 { opacity: [0, 1], y: [40, 0], scale: [0.95, 1] },
                 { duration: 0.6, easing: spring({ stiffness: 200, damping: 20 }) }
             );
         };
-        
+
         window.closeOverlay = (id) => {
-            animate(`#${id} .panel`, 
+            animate(`#${id} .panel`,
                 { opacity: 0, y: 20, scale: 0.95 },
                 { duration: 0.4 }
             ).finished.then(() => {
@@ -540,61 +454,81 @@
             lucide.createIcons();
             gsap.registerPlugin(ScrollTrigger);
 
+            initParticles();
+            initPulse();
+            initMobileMenu();
+            initKeyboard();
+
             const engine = new Engine();
             const tower = new Tower();
             engine.add(tower.group);
 
-            // --- SOVEREIGN CURSOR ---
             new SovereignCursor();
 
-            // --- MOTION: HERO ENTRANCE ---
-            animate(".hero-section .serif-title", 
+            // --- HERO ENTRANCE ---
+            animate(".hero-badge",
+                { opacity: [0, 1], y: [20, 0] },
+                { duration: 0.8, delay: 0.2 }
+            );
+            animate(".hero-section .serif-title",
                 { opacity: [0, 1], y: [50, 0] },
                 { duration: 1.2, easing: spring({ stiffness: 100, damping: 15 }) }
             );
-
-            animate(".hero-section .subtitle, .hero-section .btn-group", 
+            animate(".hero-section .subtitle, .hero-section .btn-group",
                 { opacity: [0, 1], y: [30, 0] },
                 { delay: 0.4, duration: 1.0, easing: spring({ stiffness: 100, damping: 20 }) }
             );
+            animate(".keyboard-hint",
+                { opacity: [0, 0.5] },
+                { delay: 2, duration: 1.5 }
+            );
 
-            // --- MOTION: MAGNETIC BUTTONS ---
-            const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .new-chat-btn');
-            magneticButtons.forEach(btn => {
+            // --- STATS COUNTERS ---
+            initStatsCounters();
+
+            // --- FEATURE CARDS STAGGER ---
+            gsap.from('.feature-card', {
+                opacity: 0, y: 60, duration: 0.8,
+                stagger: 0.12, ease: 'power2.out',
+                scrollTrigger: { trigger: '.features-grid', start: 'top 80%' }
+            });
+
+            // --- ARCHITECTURE DIAGRAM ---
+            gsap.from('.arch-node', {
+                opacity: 0, scale: 0.8, duration: 0.6,
+                stagger: 0.1, ease: 'back.out(1.4)',
+                scrollTrigger: { trigger: '.arch-diagram', start: 'top 75%' }
+            });
+            gsap.from('.arch-connector', {
+                scaleY: 0, duration: 0.6, stagger: 0.2,
+                scrollTrigger: { trigger: '.arch-diagram', start: 'top 75%' }
+            });
+
+            // --- MAGNETIC BUTTONS ---
+            document.querySelectorAll('.btn-primary, .btn-secondary, .new-chat-btn').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
                     animate(btn, { x: x * 0.3, y: y * 0.3 }, { duration: 0.3, easing: "ease-out" });
                 });
-                
                 btn.addEventListener('mouseleave', () => {
                     animate(btn, { x: 0, y: 0 }, { duration: 0.8, easing: spring({ stiffness: 300, damping: 10 }) });
                 });
             });
 
-            // GSAP: Parallax Scrolled Sections
-            document.querySelectorAll('.feature-section').forEach(s => {
-                gsap.from(s.querySelector('.content-wrapper'), {
-                    opacity: 0, 
-                    x: s.querySelector('.content-wrapper').classList.contains('right') ? 50 : -50,
-                    duration: 1.5,
-                    scrollTrigger: { 
-                        trigger: s, 
-                        start: "top 80%", 
-                        end: "top 40%", 
-                        scrub: true 
-                    }
-                });
-            });
-
-            // Parallax with subtle building reaction
+            // --- PARALLAX TOWER MOUSE ---
             window.addEventListener('mousemove', (e) => {
                 const x = (e.clientX / window.innerWidth - 0.5) * 2;
                 const y = (e.clientY / window.innerHeight - 0.5) * 2;
                 gsap.to(tower.group.position, { x: x * 0.8, y: -y * 0.8, duration: 2 });
                 gsap.to(engine.camera.position, { x: x * 0.2, y: -y * 0.2, duration: 2 });
+            });
+
+            // --- FOOTER ENTRANCE ---
+            gsap.from('.footer-grid > *', {
+                opacity: 0, y: 30, duration: 0.6, stagger: 0.1,
+                scrollTrigger: { trigger: '.site-footer', start: 'top 90%' }
             });
         });
     </script>

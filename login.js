@@ -58,6 +58,11 @@ class SovereignLogin {
         this.overlay.addEventListener('click', (e) => {
             if (e.target === this.overlay) this.toggle(false);
         });
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) this.toggle(false);
+        });
     }
 
     handleLogin() {

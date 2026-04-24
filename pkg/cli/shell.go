@@ -63,7 +63,7 @@ func (s *SovereignShell) printBanner() {
 	fmt.Println("║          SOVEREIGN INTELLIGENCE SHELL            ║")
 	fmt.Println("╚══════════════════════════════════════════════════╝" + ColorReset)
 	fmt.Printf("%s Local core connected at %s\n", ColorGray, time.Now().Format(time.Kitchen))
-	fmt.Println("Type 'exit' to disconnect.\n")
+	fmt.Println("Type 'exit' to disconnect.")
 }
 
 func (s *SovereignShell) processInput(input string) {

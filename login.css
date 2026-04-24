@@ -27,6 +27,7 @@
 }
 
 .login-card {
+    position: relative;
     background: #FDFCFB;
     width: 90%;
     max-width: 450px;

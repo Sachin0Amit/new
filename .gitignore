@@ -16,7 +16,7 @@ beta.log
 gamma.log
 
 # Database & State
-data/
+/data/
 *.db
 
 # OS/IDE metadata
@@ -36,3 +36,8 @@ vendor/
 
 # Go specific
 go.sum
+math_solver/data/.cache/
+__pycache__/
+*.pyc
+math_solver/data/*.csv
+math_solver/data/*.pkl

@@ -3,6 +3,7 @@ package orchestrator
 import (
 	"context"
 	"fmt"
+	"strings"
 	"sync"
 	"time"
 
@@ -25,6 +26,7 @@ import (
 	"github.com/papi-ai/sovereign-core/pkg/plugins"
 	"github.com/papi-ai/sovereign-core/pkg/capabilities"
 	"github.com/papi-ai/sovereign-core/pkg/security"
+	"github.com/papi-ai/sovereign-core/pkg/math_core"
 	"github.com/papi-ai/sovereign-core/internal/api"
 )
 
@@ -45,6 +47,7 @@ type SovereignOrchestrator struct {
 	fleet    *fleet.FleetScheduler
 	gossip   *p2p.GossipNode
 	tasks    sync.Map // Map[uuid.UUID]*models.Task
+	math     *math_core.Client
 	logger   logger.Logger
 }
 
@@ -80,6 +83,7 @@ func New(ctx context.Context, engine models.InferenceEngine, storage models.Stor
 		reflex:   reflex.NewEngine(3), // Max 3 reflex iterations
 		fleet:    fleet.NewScheduler(0.8), // 80% Load threshold
 		gossip:   gossip,
+		math:     math_core.NewClient("http://localhost:8000"),
 		logger:   logger.New(),
 		pipeline: etl.NewPipeline(4),
 		sandbox:  sandbox.NewManager(10 * time.Second),
@@ -231,6 +235,43 @@ func (o *SovereignOrchestrator) processTask(ctx context.Context, id uuid.UUID) {
 	}
 
 	start := time.Now()
+	
+	// 2.5 Strategic Intelligence Routing: Check for Mathematical Derivation
+	if isMathQuery(task.Payload["prompt"].(string)) {
+		o.logger.Info("Mathematical derivation detected. Routing to Math Intelligence Core.", logger.String("task_id", id.String()))
+		auditor.Record("ROUTING", "Delegating to Symbolic Math Core", nil)
+		
+		mathRes, err := o.math.Solve(task.Payload["prompt"].(string))
+		if err == nil {
+			task.Status = models.StatusCompleted
+			task.Result = &models.TaskResult{
+				Data: map[string]interface{}{
+					"output":       mathRes.Solution,
+					"final_answer": mathRes.FinalAnswer,
+					"problem_type": mathRes.ProblemType,
+					"plots":        mathRes.Plots,
+					"architecture": "Sovereign-Math-Core",
+					"model":        "SymbolicReasoning-v1",
+				},
+				Completed: time.Now(),
+			}
+			
+			// Inject steps into audit trail
+			for _, step := range mathRes.Steps {
+				auditor.Record("DERIVATION_STEP", step.Description, map[string]interface{}{"expression": step.Expression})
+			}
+			auditor.Sign(task.Result)
+			
+			o.hub.Broadcast(api.Message{
+				Type:      api.EventTask,
+				Payload:   task,
+				Timestamp: time.Now().UnixMilli(),
+			})
+			return
+		}
+		o.logger.Warn("Math Core failed, falling back to neural inference", logger.ErrorF(err))
+	}
+
 	auditor.Record("INFERENCE", "Dispatching payload to Titan C++ Core", nil)
 	result, err := o.engine.Infer(ctx, task.Payload)
 	duration := time.Since(start)
@@ -424,4 +465,20 @@ func (o *SovereignOrchestrator) Shutdown() error {
 // GetTasks retrieves a slice of recently submitted tasks.
 func (o *SovereignOrchestrator) GetTasks(ctx context.Context, status models.TaskStatus, limit int) ([]*models.Task, error) {
 	return o.storage.(*storage.SovereignStorage).QueryTasks(ctx, status, limit)
+}
+
+func isMathQuery(q string) bool {
+	q = strings.ToLower(q)
+	mathKeywords := []string{
+		"+", "-", "*", "/", "^", "=", "solve", "calculate", "derivative", "integral",
+		"limit", "matrix", "simplify", "years old", "how many", "what is the sum",
+		"probability", "mean", "median", "standard deviation", "hypotenuse", "area of",
+		"volume of", "prime number", "factorize", "equation", "total",
+	}
+	for _, kw := range mathKeywords {
+		if strings.Contains(q, kw) {
+			return true
+		}
+	}
+	return false
 }

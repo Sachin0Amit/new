@@ -3,7 +3,6 @@ package api
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -213,13 +212,13 @@ func truncate(s string, max int) string {
 func generateFallbackResponse(message string) string {
 	q := strings.ToLower(message)
 
-	if strings.Contains(q, "derive") || strings.Contains(q, "taylor") || strings.Contains(q, "expand") {
-		return "**[SYMB_DERIVATION_INITIATED]** The second-order Taylor expansion for f(x) = exp(x)cos(x) at x = 0 yields: T₂(x) = 1 + x + O(x³). Verification: ED25519 signed. [LOCAL_EXECUTION_VERIFIED]"
+	if strings.Contains(q, "years old") || strings.Contains(q, "age") {
+		return "The Sovereign Math Core is analyzing this word problem. Please verify the problem statement is complete (e.g., 'how many years old is...')."
 	}
 
 	if strings.Contains(q, "hello") || strings.Contains(q, "hi") {
-		return "Welcome to the Sovereign Intelligence Core. I am running locally on your hardware via the Titan C++ Engine. How can I assist your mathematical reasoning today?"
+		return "Welcome to the Sovereign Intelligence Core. I am running locally on your hardware. How can I assist your mathematical or symbolic reasoning today?"
 	}
 
-	return fmt.Sprintf("Derivation complete. The Sovereign Core has processed your query locally. Input: \"%s\". All proof-of-authenticity signatures applied. Data sovereignty maintained.", truncate(message, 100))
+	return "Derivation paused. The local core is currently refining the reasoning path for this query. Please try rephrasing or using a more explicit mathematical notation."
 }

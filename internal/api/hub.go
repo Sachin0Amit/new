@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // EventType defines the classification of a telemetry signal.

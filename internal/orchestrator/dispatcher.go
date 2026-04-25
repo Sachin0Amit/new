@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // Dispatcher manages the lifecycle of local inference tasks.

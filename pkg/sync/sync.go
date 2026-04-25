@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/pkg/p2p"
-	"github.com/papi-ai/sovereign-core/pkg/vector"
-	"github.com/papi-ai/sovereign-core/internal/models"
+	"github.com/Sachin0Amit/new/pkg/p2p"
+	"github.com/Sachin0Amit/new/pkg/vector"
+	"github.com/Sachin0Amit/new/internal/models"
 )
 
 // KnowledgeBroker manages federated memory access across the Sovereign fleet.

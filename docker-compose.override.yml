@@ -1,0 +1,12 @@
+services:
+  sovereign:
+    command: air -c .air.toml
+    environment:
+      - DEBUG=true
+      - ENV=dev
+    volumes:
+      - .:/app
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      target: builder # Use builder stage for dev if needed, or mount and run air

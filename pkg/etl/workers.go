@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/papi-ai/sovereign-core/internal/models"
+	"github.com/Sachin0Amit/new/internal/models"
 )
 
 // NewTextChunker creates a stage that splits raw text into semantic chunks of a fixed size.

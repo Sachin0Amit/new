@@ -1,0 +1,67 @@
+"filename", "language", "JavaScript", "CSS", "Makefile", "Go Module File", "HTML", "Go Checksum File", "Go", "JSON", "XML", "Markdown", "C++", "JavaScript JSX", "comment", "blank", "total"
+"/home/sachin-kumar/Desktop/coding/1/Engine.js", "JavaScript", 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 20, 86
+"/home/sachin-kumar/Desktop/coding/1/Makefile", "Makefile", 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 41
+"/home/sachin-kumar/Desktop/coding/1/Tower.js", "JavaScript", 198, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 33, 242
+"/home/sachin-kumar/Desktop/coding/1/chat-simple.html", "HTML", 0, 0, 0, 0, 277, 0, 0, 0, 0, 0, 0, 0, 0, 36, 313
+"/home/sachin-kumar/Desktop/coding/1/chat-simple.js", "JavaScript", 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 15, 85
+"/home/sachin-kumar/Desktop/coding/1/chat.css", "CSS", 0, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 313
+"/home/sachin-kumar/Desktop/coding/1/chat.html", "HTML", 0, 0, 0, 0, 95, 0, 0, 0, 0, 0, 0, 0, 0, 8, 103
+"/home/sachin-kumar/Desktop/coding/1/chat.js", "JavaScript", 189, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 44, 241
+"/home/sachin-kumar/Desktop/coding/1/cmd/sovereign/main.go", "Go", 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 14, 20, 99
+"/home/sachin-kumar/Desktop/coding/1/go.mod", "Go Module File", 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 53
+"/home/sachin-kumar/Desktop/coding/1/go.sum", "Go Checksum File", 0, 0, 0, 0, 0, 106, 0, 0, 0, 0, 0, 0, 0, 1, 107
+"/home/sachin-kumar/Desktop/coding/1/index.html", "HTML", 0, 0, 0, 0, 496, 0, 0, 0, 0, 0, 0, 0, 0, 63, 559
+"/home/sachin-kumar/Desktop/coding/1/internal/api/hub.go", "Go", 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 2, 17, 101
+"/home/sachin-kumar/Desktop/coding/1/internal/api/telemetry.go", "Go", 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 2, 7, 48
+"/home/sachin-kumar/Desktop/coding/1/internal/models/interfaces.go", "Go", 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 10, 10, 38
+"/home/sachin-kumar/Desktop/coding/1/internal/models/models.go", "Go", 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 8, 12, 79
+"/home/sachin-kumar/Desktop/coding/1/internal/orchestrator/dispatcher.go", "Go", 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 5, 11, 54
+"/home/sachin-kumar/Desktop/coding/1/internal/orchestrator/orchestrator.go", "Go", 0, 0, 0, 0, 0, 0, 167, 0, 0, 0, 0, 0, 12, 33, 212
+"/home/sachin-kumar/Desktop/coding/1/internal/orchestrator/orchestrator_test.go", "Go", 0, 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 4, 20, 87
+"/home/sachin-kumar/Desktop/coding/1/internal/storage/storage.go", "Go", 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 7, 15, 88
+"/home/sachin-kumar/Desktop/coding/1/internal/storage/storage_test.go", "Go", 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 9, 45
+"/home/sachin-kumar/Desktop/coding/1/internal/titan/cpp/titan_engine.cpp", "C++", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 1, 13, 56
+"/home/sachin-kumar/Desktop/coding/1/internal/titan/cpp/titan_engine.h", "C++", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 2, 10, 36
+"/home/sachin-kumar/Desktop/coding/1/internal/titan/engine.go", "Go", 0, 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 0, 4, 14, 80
+"/home/sachin-kumar/Desktop/coding/1/internal/titan/wasm/graphics.cpp", "C++", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 2, 11, 65
+"/home/sachin-kumar/Desktop/coding/1/login.css", "CSS", 0, 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 143
+"/home/sachin-kumar/Desktop/coding/1/login.js", "JavaScript", 95, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 18, 116
+"/home/sachin-kumar/Desktop/coding/1/pkg/capabilities/capabilities.go", "Go", 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 5, 8, 54
+"/home/sachin-kumar/Desktop/coding/1/pkg/config/config.go", "Go", 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 0, 5, 14, 67
+"/home/sachin-kumar/Desktop/coding/1/pkg/config/config_test.go", "Go", 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 3, 8, 47
+"/home/sachin-kumar/Desktop/coding/1/pkg/errors/errors.go", "Go", 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 5, 10, 67
+"/home/sachin-kumar/Desktop/coding/1/pkg/errors/errors_test.go", "Go", 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 2, 11, 48
+"/home/sachin-kumar/Desktop/coding/1/pkg/etl/pipeline.go", "Go", 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 8, 17, 89
+"/home/sachin-kumar/Desktop/coding/1/pkg/etl/workers.go", "Go", 0, 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 3, 11, 60
+"/home/sachin-kumar/Desktop/coding/1/pkg/logger/logger.go", "Go", 0, 0, 0, 0, 0, 0, 78, 0, 0, 0, 0, 0, 8, 15, 101
+"/home/sachin-kumar/Desktop/coding/1/pkg/logger/logger_test.go", "Go", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 3, 6, 34
+"/home/sachin-kumar/Desktop/coding/1/pkg/metrics/metrics.go", "Go", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 6, 8, 43
+"/home/sachin-kumar/Desktop/coding/1/pkg/metrics/metrics_test.go", "Go", 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 3, 6, 27
+"/home/sachin-kumar/Desktop/coding/1/pkg/p2p/discovery.go", "Go", 0, 0, 0, 0, 0, 0, 119, 0, 0, 0, 0, 0, 6, 21, 146
+"/home/sachin-kumar/Desktop/coding/1/pkg/p2p/gossip.go", "Go", 0, 0, 0, 0, 0, 0, 95, 0, 0, 0, 0, 0, 7, 21, 123
+"/home/sachin-kumar/Desktop/coding/1/pkg/sandbox/manager.go", "Go", 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 5, 15, 75
+"/home/sachin-kumar/Desktop/coding/1/pkg/sandbox/manager_test.go", "Go", 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 3, 8, 33
+"/home/sachin-kumar/Desktop/coding/1/pkg/security/security.go", "Go", 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 0, 0, 11, 18, 97
+"/home/sachin-kumar/Desktop/coding/1/pkg/security/security_test.go", "Go", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 5, 11, 56
+"/home/sachin-kumar/Desktop/coding/1/pkg/vector/vector.go", "Go", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 0, 6, 17, 80
+"/home/sachin-kumar/Desktop/coding/1/pkg/vector/vector_test.go", "Go", 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 12, 62
+"/home/sachin-kumar/Desktop/coding/1/script.js", "JavaScript", 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 9, 60
+"/home/sachin-kumar/Desktop/coding/1/settings.css", "CSS", 0, 198, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 224
+"/home/sachin-kumar/Desktop/coding/1/settings.js", "JavaScript", 173, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 22, 202
+"/home/sachin-kumar/Desktop/coding/1/style.css", "CSS", 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 38, 293
+"/home/sachin-kumar/Desktop/coding/1/web/admin/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 8, 17
+"/home/sachin-kumar/Desktop/coding/1/web/admin/eslint.config.js", "JavaScript", 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 30
+"/home/sachin-kumar/Desktop/coding/1/web/admin/index.html", "HTML", 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"/home/sachin-kumar/Desktop/coding/1/web/admin/package-lock.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 3103, 0, 0, 0, 0, 0, 1, 3104
+"/home/sachin-kumar/Desktop/coding/1/web/admin/package.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 1, 33
+"/home/sachin-kumar/Desktop/coding/1/web/admin/public/favicon.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/sachin-kumar/Desktop/coding/1/web/admin/public/icons.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 1, 25
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/App.css", "CSS", 0, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 185
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/App.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 191, 6, 18, 215
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/assets/react.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/assets/vite.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 2
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/index.css", "CSS", 0, 179, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 207
+"/home/sachin-kumar/Desktop/coding/1/web/admin/src/main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 2, 11
+"/home/sachin-kumar/Desktop/coding/1/web/admin/vite.config.js", "JavaScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 8
+"/home/sachin-kumar/Desktop/coding/1/web/web.go", "Go", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2, 3, 8
+"Total", "-", 864, 1191, 31, 49, 881, 106, 1676, 3135, 27, 9, 118, 200, 216, 936, 9439

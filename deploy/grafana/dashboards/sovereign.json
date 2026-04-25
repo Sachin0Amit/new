@@ -1,0 +1,32 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "panels": [
+    {
+      "title": "Derivation Throughput",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [{ "expr": "rate(derivation_tokens_total[1m])", "legendFormat": "{{node_id}}" }]
+    },
+    {
+      "title": "P99 Derivation Latency",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [{ "expr": "histogram_quantile(0.99, sum(rate(derivation_duration_seconds_bucket[5m])) by (le))" }]
+    },
+    {
+      "title": "P2P Mesh Topology",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 8 },
+      "targets": [{ "expr": "p2p_peers_connected", "legendFormat": "{{node_id}}" }]
+    },
+    {
+      "title": "Reflex Event Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 18, "x": 6, "y": 8 },
+      "targets": [{ "expr": "rate(reflex_corrections_total[5m])", "legendFormat": "{{anomaly_type}}" }]
+    }
+  ],
+  "title": "Sovereign Intelligence Core // Global Fleet",
+  "version": 1
+}

@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/pkg/finance"
-	"github.com/papi-ai/sovereign-core/pkg/finance/brokerage"
-	"github.com/papi-ai/sovereign-core/pkg/finance/news"
+	"github.com/Sachin0Amit/new/pkg/finance"
+	"github.com/Sachin0Amit/new/pkg/finance/brokerage"
+	"github.com/Sachin0Amit/new/pkg/finance/news"
 )
 
 // SovereignTrader is the autonomous trading engine that bridges the

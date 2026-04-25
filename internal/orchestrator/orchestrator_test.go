@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/internal/api"
-	"github.com/papi-ai/sovereign-core/pkg/security"
-	"github.com/papi-ai/sovereign-core/pkg/p2p"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/internal/api"
+	"github.com/Sachin0Amit/new/pkg/security"
+	"github.com/Sachin0Amit/new/pkg/p2p"
 )
 
 // MockEngine implements models.InferenceEngine for testing.

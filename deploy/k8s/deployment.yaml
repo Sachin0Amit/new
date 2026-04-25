@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sovereign-core
+  namespace: default
+  labels:
+    app: sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sovereign
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: sovereign
+    spec:
+      containers:
+      - name: sovereign
+        image: ghcr.io/sachin0amit/sovereign-core:latest # Will be updated by GH Actions
+        ports:
+        - containerPort: 8081
+        envFrom:
+        - configMapRef:
+            name: sovereign-config
+        env:
+        - name: SOVEREIGN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: sovereign-secrets
+              key: secret-key
+        volumeMounts:
+        - name: data-storage
+          mountPath: /app/data
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+      volumes:
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: sovereign-data-pvc
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001

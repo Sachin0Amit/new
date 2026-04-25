@@ -7,8 +7,8 @@ import (
 	_ "image/png"
 	"io"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/errors"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/errors"
 )
 
 // VisionProcessor handles the local transformation of visual data into inference tensors.

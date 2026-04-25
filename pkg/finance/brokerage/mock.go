@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/papi-ai/sovereign-core/pkg/finance"
+	"github.com/Sachin0Amit/new/pkg/finance"
 )
 
 // MockBroker implements BrokerAdapter for paper trading.

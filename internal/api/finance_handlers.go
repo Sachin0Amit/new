@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/pkg/finance"
-	"github.com/papi-ai/sovereign-core/pkg/finance/brokerage"
-	"github.com/papi-ai/sovereign-core/pkg/finance/news"
-	"github.com/papi-ai/sovereign-core/pkg/finance/trader"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/pkg/finance"
+	"github.com/Sachin0Amit/new/pkg/finance/brokerage"
+	"github.com/Sachin0Amit/new/pkg/finance/news"
+	"github.com/Sachin0Amit/new/pkg/finance/trader"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // FinanceHandler manages the RESTful interaction for the Finance Engine.

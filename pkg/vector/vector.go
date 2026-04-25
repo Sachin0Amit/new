@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/papi-ai/sovereign-core/pkg/errors"
+	"github.com/Sachin0Amit/new/pkg/errors"
 )
 
 // VectorSimilarity defines the logic for comparing high-dimensional embeddings.

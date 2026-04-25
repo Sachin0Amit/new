@@ -8,8 +8,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // GossipNode implements a lightweight synchronization protocol.

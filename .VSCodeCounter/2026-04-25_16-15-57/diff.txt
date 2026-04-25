@@ -1,0 +1,158 @@
+Date : 2026-04-25 16:15:57
+Directory : /home/sachin-kumar/Desktop/coding/1
+Total : 87 files,  2971 codes, 18 comments, -151 blanks, all 2838 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          3 |      5,602 |          0 |          3 |      5,605 |
+| Go                 |         32 |      1,492 |         94 |        368 |      1,954 |
+| TypeScript         |         10 |        623 |         11 |        118 |        752 |
+| C++                |          6 |        229 |         22 |         57 |        308 |
+| Python             |          3 |        117 |          1 |         26 |        144 |
+| Markdown           |          2 |         70 |          0 |         23 |         93 |
+| YAML               |          2 |         36 |          0 |          6 |         42 |
+| JSON with Comments |          1 |         23 |          0 |          3 |         26 |
+| Docker             |          1 |         16 |          8 |         10 |         34 |
+| Go Module File     |          1 |         12 |          0 |          0 |         12 |
+| HTML               |          6 |     -1,252 |          0 |       -123 |     -1,375 |
+| JavaScript         |         11 |     -1,880 |       -118 |       -354 |     -2,352 |
+| CSS                |          9 |     -2,117 |          0 |       -288 |     -2,405 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         87 |      2,971 |         18 |       -151 |      2,838 |
+| . (Files)                                                                    |          1 |         12 |          0 |          0 |         12 |
+| cpp                                                                          |          6 |        229 |         22 |         57 |        308 |
+| cpp/src                                                                      |          6 |        229 |         22 |         57 |        308 |
+| deploy                                                                       |          3 |         68 |          0 |          7 |         75 |
+| deploy/grafana                                                               |          1 |         32 |          0 |          1 |         33 |
+| deploy/grafana/dashboards                                                    |          1 |         32 |          0 |          1 |         33 |
+| deploy/prometheus                                                            |          2 |         36 |          0 |          6 |         42 |
+| internal                                                                     |         32 |      1,492 |         94 |        368 |      1,954 |
+| internal/auditor                                                             |          5 |        253 |         13 |         61 |        327 |
+| internal/auth                                                                |          3 |        231 |         18 |         52 |        301 |
+| internal/core                                                                |          1 |         30 |          2 |          8 |         40 |
+| internal/guard                                                               |          5 |        150 |         12 |         48 |        210 |
+| internal/mathsolver                                                          |          1 |         93 |          2 |         19 |        114 |
+| internal/metrics                                                             |          1 |         45 |          1 |         12 |         58 |
+| internal/reflex                                                              |          5 |        232 |         15 |         55 |        302 |
+| internal/scheduler                                                           |          5 |        205 |         20 |         53 |        278 |
+| internal/telemetry                                                           |          1 |         41 |          1 |          9 |         51 |
+| internal/titan                                                               |          5 |        212 |         10 |         51 |        273 |
+| math_solver                                                                  |          4 |        133 |          9 |         36 |        178 |
+| math_solver (Files)                                                          |          3 |        107 |          8 |         28 |        143 |
+| math_solver/tests                                                            |          1 |         26 |          1 |          8 |         35 |
+| web                                                                          |         41 |      1,037 |       -107 |       -619 |        311 |
+| web (Files)                                                                  |          7 |      5,794 |          0 |         45 |      5,839 |
+| web/dist                                                                     |         23 |     -5,513 |       -118 |       -810 |     -6,441 |
+| web/dist (Files)                                                             |          4 |     -1,109 |          0 |       -118 |     -1,227 |
+| web/dist/admin                                                               |          3 |       -488 |         -2 |        -55 |       -545 |
+| web/dist/assets                                                              |          1 |         65 |          1 |          6 |         72 |
+| web/dist/css                                                                 |          6 |     -2,136 |          0 |       -298 |     -2,434 |
+| web/dist/js                                                                  |          9 |     -1,845 |       -117 |       -345 |     -2,307 |
+| web/dist/js (Files)                                                          |          6 |     -1,407 |        -94 |       -263 |     -1,764 |
+| web/dist/js/core                                                             |          3 |       -438 |        -23 |        -82 |       -543 |
+| web/src                                                                      |         11 |        756 |         11 |        146 |        913 |
+| web/src (Files)                                                              |          4 |        291 |          7 |         60 |        358 |
+| web/src/admin                                                                |          5 |        305 |          4 |         56 |        365 |
+| web/src/styles                                                               |          2 |        160 |          0 |         30 |        190 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                     | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/context_manager.cpp              | C++                |         58 |          7 |         11 |         76 |
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/inference_queue.cpp              | C++                |          3 |         -1 |          0 |          2 |
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/neural_engine.cpp                | C++                |         42 |          8 |         13 |         63 |
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/simd_utils.h                     | C++                |         52 |          1 |         13 |         66 |
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/symbolic_engine.cpp              | C++                |         35 |          3 |          9 |         47 |
+| /home/sachin-kumar/Desktop/coding/1/cpp/src/titan.cpp                        | C++                |         39 |          4 |         11 |         54 |
+| /home/sachin-kumar/Desktop/coding/1/deploy/grafana/dashboards/sovereign.json | JSON               |         32 |          0 |          1 |         33 |
+| /home/sachin-kumar/Desktop/coding/1/deploy/prometheus/alerts.yml             | YAML               |         27 |          0 |          3 |         30 |
+| /home/sachin-kumar/Desktop/coding/1/deploy/prometheus/prometheus.yml         | YAML               |          9 |          0 |          3 |         12 |
+| /home/sachin-kumar/Desktop/coding/1/go.mod                                   | Go Module File     |         12 |          0 |          0 |         12 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auditor/auditor_test.go         | Go                 |         27 |          5 |          9 |         41 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auditor/keystore.go             | Go                 |         88 |          2 |         23 |        113 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auditor/store.go                | Go                 |         46 |          1 |         11 |         58 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auditor/trail.go                | Go                 |         63 |          1 |         10 |         74 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auditor/verifier.go             | Go                 |         29 |          4 |          8 |         41 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auth/auth_test.go               | Go                 |         58 |          7 |         15 |         80 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auth/jwt.go                     | Go                 |         76 |          6 |         17 |         99 |
+| /home/sachin-kumar/Desktop/coding/1/internal/auth/middleware.go              | Go                 |         97 |          5 |         20 |        122 |
+| /home/sachin-kumar/Desktop/coding/1/internal/core/health.go                  | Go                 |         30 |          2 |          8 |         40 |
+| /home/sachin-kumar/Desktop/coding/1/internal/guard/audit_hook.go             | Go                 |         16 |          3 |          7 |         26 |
+| /home/sachin-kumar/Desktop/coding/1/internal/guard/capabilities.go           | Go                 |         33 |          0 |          6 |         39 |
+| /home/sachin-kumar/Desktop/coding/1/internal/guard/enforcer.go               | Go                 |         53 |          3 |         13 |         69 |
+| /home/sachin-kumar/Desktop/coding/1/internal/guard/guard_test.go             | Go                 |         -4 |          4 |          8 |          8 |
+| /home/sachin-kumar/Desktop/coding/1/internal/guard/sandbox.go                | Go                 |         52 |          2 |         14 |         68 |
+| /home/sachin-kumar/Desktop/coding/1/internal/mathsolver/client.go            | Go                 |         93 |          2 |         19 |        114 |
+| /home/sachin-kumar/Desktop/coding/1/internal/metrics/metrics.go              | Go                 |         45 |          1 |         12 |         58 |
+| /home/sachin-kumar/Desktop/coding/1/internal/reflex/budget.go                | Go                 |         29 |          0 |          9 |         38 |
+| /home/sachin-kumar/Desktop/coding/1/internal/reflex/corrector.go             | Go                 |         48 |          5 |         12 |         65 |
+| /home/sachin-kumar/Desktop/coding/1/internal/reflex/detector.go              | Go                 |         73 |          5 |         12 |         90 |
+| /home/sachin-kumar/Desktop/coding/1/internal/reflex/learner.go               | Go                 |         27 |          2 |          9 |         38 |
+| /home/sachin-kumar/Desktop/coding/1/internal/reflex/reflex_test.go           | Go                 |         55 |          3 |         13 |         71 |
+| /home/sachin-kumar/Desktop/coding/1/internal/scheduler/gravity.go            | Go                 |         61 |          2 |         11 |         74 |
+| /home/sachin-kumar/Desktop/coding/1/internal/scheduler/migrator.go           | Go                 |         35 |          4 |          8 |         47 |
+| /home/sachin-kumar/Desktop/coding/1/internal/scheduler/receiver.go           | Go                 |         23 |          3 |          9 |         35 |
+| /home/sachin-kumar/Desktop/coding/1/internal/scheduler/scheduler.go          | Go                 |         38 |          6 |         10 |         54 |
+| /home/sachin-kumar/Desktop/coding/1/internal/scheduler/scheduler_test.go     | Go                 |         48 |          5 |         15 |         68 |
+| /home/sachin-kumar/Desktop/coding/1/internal/telemetry/otel.go               | Go                 |         41 |          1 |          9 |         51 |
+| /home/sachin-kumar/Desktop/coding/1/internal/titan/bridge.go                 | Go                 |         51 |          5 |         13 |         69 |
+| /home/sachin-kumar/Desktop/coding/1/internal/titan/bridge_test.go            | Go                 |         41 |          5 |         13 |         59 |
+| /home/sachin-kumar/Desktop/coding/1/internal/titan/fallback.go               | Go                 |         63 |          3 |         15 |         81 |
+| /home/sachin-kumar/Desktop/coding/1/internal/titan/pool.go                   | Go                 |         60 |          1 |         14 |         75 |
+| /home/sachin-kumar/Desktop/coding/1/internal/titan/titan.go                  | Go                 |         -3 |         -4 |         -4 |        -11 |
+| /home/sachin-kumar/Desktop/coding/1/math_solver/Dockerfile                   | Docker             |         16 |          8 |         10 |         34 |
+| /home/sachin-kumar/Desktop/coding/1/math_solver/server.py                    | Python             |         36 |          0 |          7 |         43 |
+| /home/sachin-kumar/Desktop/coding/1/math_solver/solver.py                    | Python             |         55 |          0 |         11 |         66 |
+| /home/sachin-kumar/Desktop/coding/1/math_solver/tests/test_solver.py         | Python             |         26 |          1 |          8 |         35 |
+| /home/sachin-kumar/Desktop/coding/1/web/DESIGN_SYSTEM.md                     | Markdown           |         38 |          0 |         12 |         50 |
+| /home/sachin-kumar/Desktop/coding/1/web/README.md                            | Markdown           |         32 |          0 |         11 |         43 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/admin/WindowManager.js          | JavaScript         |       -100 |         -2 |        -15 |       -117 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/admin/desktop.css               | CSS                |       -141 |          0 |        -20 |       -161 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/admin/desktop.html              | HTML               |       -247 |          0 |        -20 |       -267 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/assets/index-CH0pkqpO.js        | JavaScript         |         65 |          1 |          6 |         72 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/chat-simple.html                | HTML               |       -359 |          0 |        -46 |       -405 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/chat.html                       | HTML               |       -106 |          0 |        -10 |       -116 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/chat.css                    | CSS                |       -638 |          0 |        -86 |       -724 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/cursor.css                  | CSS                |       -116 |          0 |        -17 |       -133 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/finance.css                 | CSS                |       -283 |          0 |        -49 |       -332 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/login.css                   | CSS                |       -126 |          0 |        -18 |       -144 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/settings.css                | CSS                |       -198 |          0 |        -26 |       -224 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/css/style.css                   | CSS                |       -775 |          0 |       -102 |       -877 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/finance.html                    | HTML               |       -164 |          0 |        -24 |       -188 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/index.html                      | HTML               |       -480 |          0 |        -38 |       -518 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/chat-simple.js               | JavaScript         |       -148 |         -2 |        -26 |       -176 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/chat.js                      | JavaScript         |       -565 |        -43 |       -121 |       -729 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/core/Cursor.js               | JavaScript         |        -88 |         -6 |        -20 |       -114 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/core/Engine.js               | JavaScript         |        -93 |         -5 |        -26 |       -124 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/core/Tower.js                | JavaScript         |       -257 |        -12 |        -36 |       -305 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/finance.js                   | JavaScript         |       -368 |        -30 |        -64 |       -462 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/login.js                     | JavaScript         |        -98 |         -4 |        -19 |       -121 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/script.js                    | JavaScript         |        -44 |         -7 |         -9 |        -60 |
+| /home/sachin-kumar/Desktop/coding/1/web/dist/js/settings.js                  | JavaScript         |       -184 |         -8 |        -24 |       -216 |
+| /home/sachin-kumar/Desktop/coding/1/web/index.html                           | HTML               |        104 |          0 |         15 |        119 |
+| /home/sachin-kumar/Desktop/coding/1/web/package-lock.json                    | JSON               |      5,542 |          0 |          1 |      5,543 |
+| /home/sachin-kumar/Desktop/coding/1/web/package.json                         | JSON               |         28 |          0 |          1 |         29 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/admin/dashboard.ts               | TypeScript         |         57 |          0 |          8 |         65 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/admin/export.ts                  | TypeScript         |         31 |          0 |          7 |         38 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/admin/fleet-matrix.ts            | TypeScript         |         73 |          1 |         14 |         88 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/admin/reasoning-visualizer.ts    | TypeScript         |         92 |          3 |         19 |        114 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/admin/reflex-monitor.ts          | TypeScript         |         52 |          0 |          8 |         60 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/chat.ts                          | TypeScript         |         90 |          0 |         17 |        107 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/finance.ts                       | TypeScript         |         71 |          0 |         11 |         82 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/login.ts                         | TypeScript         |         76 |          4 |         18 |         98 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/settings.ts                      | TypeScript         |         54 |          3 |         14 |         71 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/styles/components.css            | CSS                |        113 |          0 |         17 |        130 |
+| /home/sachin-kumar/Desktop/coding/1/web/src/styles/tokens.css                | CSS                |         47 |          0 |         13 |         60 |
+| /home/sachin-kumar/Desktop/coding/1/web/tsconfig.json                        | JSON with Comments |         23 |          0 |          3 |         26 |
+| /home/sachin-kumar/Desktop/coding/1/web/vite.config.ts                       | TypeScript         |         27 |          0 |          2 |         29 |
+| Total                                                                        |                    |      2,971 |         18 |       -151 |      2,838 |
++------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

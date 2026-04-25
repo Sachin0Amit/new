@@ -1,7 +1,7 @@
 package capabilities
 
 import (
-	"github.com/papi-ai/sovereign-core/pkg/errors"
+	"github.com/Sachin0Amit/new/pkg/errors"
 )
 
 // Capability defines a specific permission granted to a Sovereign task.

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // StorageQueryable defines the sub-interface for persistence management.

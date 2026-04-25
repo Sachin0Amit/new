@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // Plugin defines the standard contract for all Sovereign system extensions.

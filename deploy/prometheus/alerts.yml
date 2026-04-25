@@ -1,0 +1,29 @@
+groups:
+  - name: sovereign_alerts
+    rules:
+      - alert: DerviationQueueSaturation
+        expr: active_derivations > 100
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "AI Derivation Queue is saturated"
+          description: "Active derivations have exceeded 100 for more than 5 minutes on {{ $labels.instance }}."
+
+      - alert: HighAnomalyRate
+        expr: rate(reflex_corrections_total[1m]) > 0.16
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High autonomous reflex anomaly rate"
+          description: "The rate of anomalies and reflex corrections is exceeding 10 per minute."
+
+      - alert: NodeIsolated
+        expr: p2p_peers_connected < 2
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node is isolated from P2P mesh"
+          description: "Node {{ $labels.node_id }} has fewer than 2 connected peers."

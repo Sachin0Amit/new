@@ -1,0 +1,65 @@
+services:
+  sovereign:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    container_name: sovereign-core
+    ports:
+      - "8081:8081"
+    environment:
+      - SOVEREIGN_SECRET=dev_secret_key
+      - ENV=prod
+    volumes:
+      - sovereign-data:/app/data
+    networks:
+      - sovereign-net
+    restart: unless-stopped
+
+  badger-explorer:
+    image: benreid/badger-explorer:latest
+    container_name: badger-explorer
+    ports:
+      - "8002:8002"
+    environment:
+      - BADGER_DIR=/data/mesh
+    volumes:
+      - sovereign-data:/data
+    networks:
+      - sovereign-net
+    depends_on:
+      - sovereign
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - sovereign-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    networks:
+      - sovereign-net
+    depends_on:
+      - prometheus
+
+networks:
+  sovereign-net:
+    driver: bridge
+
+volumes:
+  sovereign-data:
+  prometheus-data:
+  grafana-data:

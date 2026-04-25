@@ -3,7 +3,7 @@ package brokerage
 import (
 	"fmt"
 
-	"github.com/papi-ai/sovereign-core/pkg/finance"
+	"github.com/Sachin0Amit/new/pkg/finance"
 )
 
 // ZerodhaBroker implements BrokerAdapter for Zerodha Kite Connect API.

@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 
 	"github.com/google/uuid"
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/logger"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/logger"
 )
 
 // SovereignKnowledgeEntry represents a single knowledge item.

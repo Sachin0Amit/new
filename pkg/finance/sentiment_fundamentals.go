@@ -2,7 +2,7 @@ package finance
 
 /*
 #cgo CXXFLAGS: -std=c++17 -O3 -march=native -Wall -Wextra
-#cgo LDFLAGS: -L${SRCDIR}/../../internal/titan/cpp/finance -lfinance_engine -lstdc++ -lm
+#cgo LDFLAGS: -L${SRCDIR}/../../internal/titan -ltitan -lstdc++ -lm
 #include <stdlib.h>
 
 char* finance_analyze_sentiment(const char* headline);

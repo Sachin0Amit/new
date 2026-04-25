@@ -1,10 +1,10 @@
 package titan
 
 /*
-#cgo LDFLAGS: -L./cpp -ltitan -lstdc++
+#cgo LDFLAGS: -L. -ltitan -lstdc++ -lm
 #include <stdlib.h>
 #include <stdint.h>
-#include "cpp/titan_engine.h"
+#include "../../cpp/engine/titan_engine.h"
 */
 import "C"
 import (
@@ -14,7 +14,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
+	"github.com/Sachin0Amit/new/internal/models"
 )
 
 // NeuralEngine provides access to the Sovereign Neural Architecture via CGo.

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/papi-ai/sovereign-core/internal/models"
+	"github.com/Sachin0Amit/new/internal/models"
 )
 
 func TestStorageLifecycle(t *testing.T) {

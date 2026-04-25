@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/papi-ai/sovereign-core/pkg/errors"
+	"github.com/Sachin0Amit/new/pkg/errors"
 )
 
 // AudioPulse handles the parsing and normalization of auditory waveforms.

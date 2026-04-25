@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/papi-ai/sovereign-core/internal/models"
-	"github.com/papi-ai/sovereign-core/pkg/vector"
+	"github.com/Sachin0Amit/new/internal/models"
+	"github.com/Sachin0Amit/new/pkg/vector"
 )
 
 // KnowledgeMesh orchestrates semantic search across various memory domains.

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package mesh;
+
+option go_package = "github.com/Sachin0Amit/new/internal/mesh";
+
+message GossipMessage {
+  string node_id = 1;
+  int64 timestamp = 2;
+  bytes summary_hash = 3;
+  bytes summary_payload = 4;
+  bytes signature = 5;
+}

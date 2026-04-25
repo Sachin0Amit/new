@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sovereign Intelligence Core - Unified Command Center">
+  <title>Sovereign Intelligence Core // Command Center</title>
+  
+  <link rel="stylesheet" href="./src/styles/tokens.css">
+  <link rel="stylesheet" href="./src/styles/components.css">
+  
+  <style>
+    #app-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-template-rows: 60px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      #app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 1fr auto;
+      }
+      aside { display: none; }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--color-border);
+      background-color: var(--color-bg-secondary);
+    }
+
+    aside {
+      border-right: 1px solid var(--color-border);
+      padding: 20px;
+      background-color: var(--color-bg-secondary);
+    }
+
+    main {
+      padding: 20px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app-container">
+    <header role="banner">
+      <h1 style="font-size: 1.2rem; margin: 0;">Sovereign Core // Command Center</h1>
+      <div id="global-stats" aria-label="System Statistics" role="status">
+        <!-- Stats populated by JS -->
+      </div>
+    </header>
+
+    <aside role="navigation">
+      <nav>
+        <ul>
+          <li><button class="btn btn-ghost active" onclick="showTab('fleet')" aria-current="page">Fleet Matrix</button></li>
+          <li><button class="btn btn-ghost" onclick="showTab('visualizer')">Reasoning DAG</button></li>
+          <li><button class="btn btn-ghost" onclick="showTab('reflex')">Reflex Monitor</button></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="app-main" role="main">
+      <section id="fleet-container" class="card" aria-label="Fleet Matrix Panel">
+        <!-- Content -->
+      </section>
+      <section id="graph-container" class="card" style="display: none;" aria-label="Reasoning DAG Panel">
+        <!-- Content -->
+      </section>
+      <section id="reflex-container" class="card" style="display: none;" aria-label="Reflex Monitor Panel">
+        <!-- Content -->
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import { AdminDashboard } from './src/admin/dashboard.ts';
+    new AdminDashboard();
+
+    window.showTab = (tab) => {
+      document.querySelectorAll('main section').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('nav button').forEach(el => {
+        el.classList.remove('active');
+        el.removeAttribute('aria-current');
+      });
+      
+      const containerId = tab === 'fleet' ? 'fleet-container' : (tab === 'visualizer' ? 'graph-container' : 'reflex-container');
+      const target = document.getElementById(containerId);
+      target.style.display = 'block';
+      
+      const btn = Array.from(document.querySelectorAll('nav button')).find(b => b.innerText.toLowerCase().includes(tab));
+      if (btn) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-current', 'page');
+      }
+    };
+  </script>
+</body>
+</html>

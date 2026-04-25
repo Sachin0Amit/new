@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/papi-ai/sovereign-core/pkg/errors"
+	"github.com/Sachin0Amit/new/pkg/errors"
 )
 
 // SecurityManager defines the core defensive operations for the system.

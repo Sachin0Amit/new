@@ -42,8 +42,8 @@ The Sovereign Core is comprised of several high-performance modules integrated i
 ### **Initial Setup**
 ```bash
 # Clone the Core
-git clone https://github.com/papi-ai/sovereign-core.git
-cd sovereign-core
+git clone https://github.com/Sachin0Amit/new.git
+cd new
 
 # Build the Binaries
 go build -o sovereign_ops ./cmd/sovereign/main.go

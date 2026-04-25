@@ -1,5 +1,8 @@
+version: '3.8'
+
 services:
-  sovereign:
+  # Sovereign Core (Go Backend)
+  sovereign-core:
     build:
       context: .
       dockerfile: deploy/Dockerfile
@@ -7,53 +10,122 @@ services:
     ports:
       - "8081:8081"
     environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - DATABASE_PATH=/data/badger
+      - LOG_LEVEL=info
       - SOVEREIGN_SECRET=dev_secret_key
-      - ENV=prod
     volumes:
-      - sovereign-data:/app/data
+      - sovereign-data:/data
+      - ./checkpoints:/checkpoints
+    depends_on:
+      ollama:
+        condition: service_healthy
+      prometheus:
+        condition: service_healthy
     networks:
       - sovereign-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  badger-explorer:
-    image: benreid/badger-explorer:latest
-    container_name: badger-explorer
+  # Ollama (Local LLM Server)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
     ports:
-      - "8002:8002"
-    environment:
-      - BADGER_DIR=/data/mesh
+      - "11434:11434"
     volumes:
-      - sovereign-data:/data
+      - ollama_data:/root/.ollama
     networks:
       - sovereign-net
-    depends_on:
-      - sovereign
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
 
+  # Python Sidecar (Math Solver, Embeddings)
+  python-sidecar:
+    build:
+      context: ./math_solver
+      dockerfile: Dockerfile
+    container_name: python-sidecar
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./data:/data
+      - ./checkpoints:/checkpoints
+    networks:
+      - sovereign-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Prometheus (Metrics Collection)
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    volumes:
-      - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-data:/prometheus
     ports:
       - "9090:9090"
+    volumes:
+      - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
     networks:
       - sovereign-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/-/healthy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # Grafana (Dashboard Visualization)
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=sovereign
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
     volumes:
       - ./deploy/grafana/provisioning:/etc/grafana/provisioning
-      - grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - sovereign-net
+    restart: unless-stopped
+
+  # BadgerDB Explorer (Database UI)
+  badger-explorer:
+    image: benreid/badger-explorer:latest
+    container_name: badger-explorer
+    ports:
+      - "8002:8002"
+    environment:
+      - BADGER_DIR=/data/badger
+    volumes:
+      - sovereign-data:/data
     networks:
       - sovereign-net
     depends_on:
-      - prometheus
+      - sovereign-core
+    restart: unless-stopped
 
 networks:
   sovereign-net:
@@ -61,5 +133,6 @@ networks:
 
 volumes:
   sovereign-data:
-  prometheus-data:
-  grafana-data:
+  ollama_data:
+  prometheus_data:
+  grafana_data:

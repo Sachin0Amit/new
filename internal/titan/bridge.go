@@ -19,8 +19,8 @@ type TitanEngine struct {
 	handle *C.titan_handle_t
 }
 
-// New creates a new TitanEngine instance from a JSON configuration.
-func New(configJSON string) (*TitanEngine, error) {
+// NewTitanEngine creates a new TitanEngine instance from a JSON configuration.
+func NewTitanEngine(configJSON string) (*TitanEngine, error) {
 	cConfig := C.CString(configJSON)
 	defer C.free(unsafe.Pointer(cConfig))
 

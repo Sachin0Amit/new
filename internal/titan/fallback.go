@@ -68,7 +68,7 @@ func (e *FallbackEngine) Close() error {
 // LoadEngine attempts to load the CGo engine, falling back to HTTP if it fails.
 func LoadEngine(ctx context.Context, configJSON string, fallbackURL string) (Engine, error) {
 	// 1. Try CGo (local C++ shared lib)
-	engine, err := New(configJSON)
+	engine, err := NewTitanEngine(configJSON)
 	if err == nil {
 		fmt.Println("🚀 Titan C++ Engine loaded successfully.")
 		return engine, nil

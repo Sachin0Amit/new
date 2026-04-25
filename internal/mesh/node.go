@@ -54,15 +54,19 @@ func NewNode(ctx context.Context, listenPort int) (*Node, error) {
 		Priv: priv,
 		registry: NewPeerRegistry(),
 	}
-
-	// Initialize mDNS discovery
-	dn := &discoveryNotifee{h: h}
-	ser := mdns.NewMdnsService(h, "sovereign-mesh", dn)
-	if err := ser.Start(); err != nil {
-		return nil, err
-	}
-
 	return node, nil
+}
+
+// Start initializes background tasks like gossip loops and discovery.
+func (n *Node) Start(ctx context.Context) error {
+	// Initialize mDNS discovery
+	dn := &discoveryNotifee{h: n.Host}
+	ser := mdns.NewMdnsService(n.Host, "sovereign-mesh", dn)
+	if err := ser.Start(); err != nil {
+		return err
+	}
+	fmt.Println("mDNS discovery started")
+	return nil
 }
 
 func (n *Node) Close() error {

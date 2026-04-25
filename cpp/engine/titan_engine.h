@@ -34,12 +34,12 @@ typedef void* TitanContext;
 typedef void* TitanNeuralContext;
 
 // ============ Symbolic Engine Lifecycle ============
-TitanContext titan_init(const char* device);
-void titan_free(TitanContext ctx);
+TitanContext titan_symbolic_init(const char* device);
+void titan_symbolic_free(TitanContext ctx);
 
 // ============ Symbolic Inference ============
-TitanResult titan_infer(TitanContext ctx, const char* payload);
-void titan_free_result(TitanResult res);
+TitanResult titan_symbolic_infer(TitanContext ctx, const char* payload);
+void titan_symbolic_free_result(TitanResult res);
 
 // ============ Neural Engine Lifecycle ============
 // config_tier: "local", "mid", "max"

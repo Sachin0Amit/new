@@ -16,7 +16,8 @@ CLANG_TIDY = clang-tidy
 ESLINT = npx eslint
 DOCKER = docker
 
-.PHONY: all build clean test lint dev docker-build help
+.PHONY: all build clean test lint dev docker-build docker-up docker-down docker-logs \
+        download-data finetune eval health-check help
 
 all: build
 
@@ -25,11 +26,9 @@ build: build-cpp build-go build-web
 	@echo "✅ Full build complete."
 
 build-cpp:
-	@echo "🔨 Building C++ Engine Core..."
-	@mkdir -p $(BUILD_DIR)
-	@cd $(BUILD_DIR) && cmake ../$(CPP_DIR) && make
-	@mkdir -p internal/titan/
-	@cp $(BUILD_DIR)/libtitan.a internal/titan/
+	@echo "🔨 Building C++ Engine Core (Shared)..."
+	@mkdir -p $(CPP_DIR)/build/Release
+	@cd $(CPP_DIR)/build/Release && cmake -DCMAKE_BUILD_TYPE=Release ../.. && make titan_engine
 
 build-go:
 	@echo "🔨 Building Sovereign Orchestrator..."
@@ -85,4 +84,75 @@ help:
 	@echo "  make test          - Run all tests"
 	@echo "  make lint          - Run linters (Go, C++, JS)"
 	@echo "  make docker-build  - Build Docker image"
+	@echo "  make docker-up     - Start all services with docker-compose"
+	@echo "  make docker-down   - Stop all services"
+	@echo "  make docker-logs   - View docker-compose logs"
+	@echo "  make download-data - Download training datasets"
+	@echo "  make finetune      - Fine-tune model with LoRA"
+	@echo "  make eval          - Evaluate model"
+	@echo "  make health-check  - Check health of all services"
 	@echo "  make clean         - Remove build artifacts"
+
+# 7. Docker Compose Targets
+docker-up:
+	@echo "🚀 Starting all services with docker-compose..."
+	@docker-compose up -d
+	@echo "✅ Services started. Dashboard at http://localhost:3000"
+
+docker-down:
+	@echo "🛑 Stopping all services..."
+	@docker-compose down
+
+docker-logs:
+	@echo "📊 Streaming logs..."
+	@docker-compose logs -f
+
+# 8. Training Pipeline Targets
+download-data:
+	@echo "📥 Downloading training datasets..."
+	@python3 scripts/download_datasets.py
+	@echo "✅ Training data downloaded to data/training/"
+
+finetune:
+	@echo "🎓 Starting LoRA fine-tuning..."
+	@python3 scripts/finetune.py \
+		--model mistralai/Mistral-7B \
+		--train-data data/training/train.jsonl \
+		--val-data data/training/val.jsonl \
+		--output-dir checkpoints/lora_finetuned \
+		--epochs 3 \
+		--batch-size 8 \
+		--lr 2e-4 \
+		--rank 16 \
+		--alpha 32
+	@echo "✅ Fine-tuning complete!"
+
+eval:
+	@echo "📈 Evaluating model..."
+	@python3 scripts/eval.py \
+		--model checkpoints/lora_finetuned/final_model \
+		--val-data data/training/val.jsonl \
+		--output-json results/eval_metrics.json \
+		--mlflow
+	@echo "✅ Evaluation complete! Results at results/eval_metrics.json"
+
+# 9. Health Check Target
+health-check:
+	@echo "🏥 Checking service health..."
+	@echo -n "Sovereign Core: "
+	@curl -s http://localhost:8081/health > /dev/null && echo "✅ OK" || echo "❌ FAILED"
+	@echo -n "Ollama: "
+	@curl -s http://localhost:11434/api/tags > /dev/null && echo "✅ OK" || echo "❌ FAILED"
+	@echo -n "Python Sidecar: "
+	@curl -s http://localhost:5000/health > /dev/null && echo "✅ OK" || echo "❌ FAILED"
+	@echo -n "Prometheus: "
+	@curl -s http://localhost:9090/-/healthy > /dev/null && echo "✅ OK" || echo "❌ FAILED"
+	@echo -n "Grafana: "
+	@curl -s http://localhost:3000/api/health > /dev/null && echo "✅ OK" || echo "❌ FAILED"
+	@echo ""
+	@echo "Dashboards:"
+	@echo "  Sovereign Core:    http://localhost:8081"
+	@echo "  Chat Interface:    http://localhost:8081/web/chat.html"
+	@echo "  Grafana:           http://localhost:3000"
+	@echo "  Prometheus:        http://localhost:9090"
+	@echo "  BadgerDB Explorer: http://localhost:8002"

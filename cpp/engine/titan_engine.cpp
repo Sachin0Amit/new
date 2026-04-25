@@ -35,18 +35,18 @@ extern "C" {
 
 // ============ SYMBOLIC ENGINE ============
 
-TitanContext titan_init(const char* device) {
+TitanContext titan_symbolic_init(const char* device) {
     TitanInternalContext* ctx = new TitanInternalContext();
     ctx->device = device;
     ctx->initialized = true;
     return (TitanContext)ctx;
 }
 
-void titan_free(TitanContext ctx) {
+void titan_symbolic_free(TitanContext ctx) {
     if (ctx) delete (TitanInternalContext*)ctx;
 }
 
-TitanResult titan_infer(TitanContext ctx, const char* payload) {
+TitanResult titan_symbolic_infer(TitanContext ctx, const char* payload) {
     TitanInternalContext* internal = (TitanInternalContext*)ctx;
     std::this_thread::sleep_for(std::chrono::milliseconds(150));
 
@@ -58,7 +58,7 @@ TitanResult titan_infer(TitanContext ctx, const char* payload) {
     return res;
 }
 
-void titan_free_result(TitanResult res) {
+void titan_symbolic_free_result(TitanResult res) {
     if (res.data) free(res.data);
 }
 

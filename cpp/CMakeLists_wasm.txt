@@ -1,0 +1,28 @@
+# CMakeLists.txt for WASM compilation of expression parser
+# Use Emscripten to compile C++ to WebAssembly
+
+cmake_minimum_required(VERSION 3.16)
+project(expression_parser_wasm)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Emscripten settings
+if(EMSCRIPTEN)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s EXPORTED_FUNCTIONS='[\"_parse_and_differentiate\",\"_evaluate_expression\"]' -s EXPORTED_RUNTIME_METHODS='[\"cwrap\"]'")
+endif()
+
+# Source files
+set(SOURCES
+    cpp/src/expression_parser.cpp
+)
+
+# Create WebAssembly module
+add_executable(expression_parser ${SOURCES})
+
+if(EMSCRIPTEN)
+    set_target_properties(expression_parser PROPERTIES SUFFIX ".js")
+    target_link_libraries(expression_parser PRIVATE -O3 -s WASM=1 -s ALLOW_MEMORY_GROWTH=1)
+endif()

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Intelligence Core - Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Sovereign Core</h1>
+                <button id="newChatBtn" class="btn-new-chat">+ New Chat</button>
+            </div>
+            
+            <div class="sessions-list">
+                <h3>Sessions</h3>
+                <div id="sessionsList" class="sessions"></div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button id="settingsBtn" class="btn-icon">⚙️</button>
+                <button id="voiceBtn" class="btn-icon">🎤</button>
+            </div>
+        </aside>
+        
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <!-- Header -->
+            <header class="chat-header">
+                <h2 id="sessionTitle">New Conversation</h2>
+                <div class="header-actions">
+                    <span id="connectionStatus" class="status disconnected">●</span>
+                </div>
+            </header>
+            
+            <!-- Messages -->
+            <div id="messagesContainer" class="messages-container"></div>
+            
+            <!-- Input Area -->
+            <div class="input-area">
+                <form id="chatForm" class="chat-form">
+                    <textarea
+                        id="messageInput"
+                        class="message-input"
+                        placeholder="Type your message... (Shift+Enter for new line)"
+                        rows="1"
+                    ></textarea>
+                    <button type="submit" class="btn-send">Send</button>
+                </form>
+                <div class="input-actions">
+                    <label class="btn-icon-label">
+                        📎 <input type="file" id="fileInput" style="display: none;">
+                    </label>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modals -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <div class="settings-form">
+                <label>
+                    Model:
+                    <select id="modelSelect">
+                        <option value="local">Local (Ollama)</option>
+                        <option value="remote">Remote (OpenAI API)</option>
+                    </select>
+                </label>
+                <label>
+                    Temperature:
+                    <input type="range" id="temperatureSlider" min="0" max="1" step="0.1" value="0.7">
+                    <span id="tempValue">0.7</span>
+                </label>
+                <label>
+                    <input type="checkbox" id="enableVoiceOutput">
+                    Enable Voice Output
+                </label>
+                <label>
+                    <input type="checkbox" id="enableStreaming" checked>
+                    Enable Streaming
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>

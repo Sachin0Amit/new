@@ -2,7 +2,6 @@ package llm
 
 import (
 	"context"
-	"io"
 )
 
 // MessageRole represents the role of a message in conversation

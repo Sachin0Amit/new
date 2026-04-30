@@ -7,6 +7,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Sachin0Amit/new/internal/llm"
 	"github.com/dgraph-io/badger/v4"
 )
 
@@ -36,7 +37,9 @@ func (bms *BadgerMemoryStore) StoreEpisode(ctx context.Context, key string, data
 		entry = entry.WithTTL(ttl)
 	}
 
-	return bms.db.NewTransaction(true).SetEntry(entry).Commit()
+	return bms.db.Update(func(txn *badger.Txn) error {
+		return txn.SetEntry(entry)
+	})
 }
 
 // RetrieveEpisode retrieves episodic memory
@@ -78,7 +81,9 @@ func (bms *BadgerMemoryStore) StoreSemanticMemory(ctx context.Context, text stri
 	key := fmt.Sprintf("semantic:%d", time.Now().UnixNano())
 	entry := badger.NewEntry([]byte(key), bytes).WithTTL(24 * time.Hour)
 
-	return bms.db.NewTransaction(true).SetEntry(entry).Commit()
+	return bms.db.Update(func(txn *badger.Txn) error {
+		return txn.SetEntry(entry)
+	})
 }
 
 // SearchSemanticMemory searches semantic memory
@@ -114,10 +119,10 @@ func (bms *BadgerMemoryStore) SearchSemanticMemory(ctx context.Context, query st
 }
 
 // GetShortTermMemory returns the recent messages (short-term memory)
-func (bms *BadgerMemoryStore) GetShortTermMemory(ctx context.Context) ([]interface{}, error) {
+func (bms *BadgerMemoryStore) GetShortTermMemory(ctx context.Context) ([]llm.Message, error) {
 	// This would be better implemented by integrating with context manager
 	// For now, return empty
-	return make([]interface{}, 0), nil
+	return make([]llm.Message, 0), nil
 }
 
 // InMemoryMemoryStore is a simple in-memory implementation
@@ -197,6 +202,6 @@ func (ims *InMemoryMemoryStore) SearchSemanticMemory(ctx context.Context, query 
 }
 
 // GetShortTermMemory returns short-term memory
-func (ims *InMemoryMemoryStore) GetShortTermMemory(ctx context.Context) ([]interface{}, error) {
-	return make([]interface{}, 0), nil
+func (ims *InMemoryMemoryStore) GetShortTermMemory(ctx context.Context) ([]llm.Message, error) {
+	return make([]llm.Message, 0), nil
 }

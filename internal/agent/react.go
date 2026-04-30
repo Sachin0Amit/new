@@ -106,8 +106,14 @@ func (ra *ReActAgent) Reason(ctx context.Context, prompt string, onStep func(*St
 
 		stepStart := time.Now()
 
+		// Pre-declare variables used after goto targets
+		var action *llm.ToolCall
+		var shouldStop bool
+		var err error
+
 		// 1. THOUGHT: Get reasoning from LLM
-		thought, err := ra.generateThought(ctx)
+		var thought string
+		thought, err = ra.generateThought(ctx)
 		if err != nil {
 			step.Error = fmt.Errorf("thought generation failed: %w", err)
 			step.Observation = ""
@@ -124,7 +130,7 @@ func (ra *ReActAgent) Reason(ctx context.Context, prompt string, onStep func(*St
 		}
 
 		// 2. ACTION: Decide on tool use or final answer
-		action, shouldStop, err := ra.decideAction(ctx, thought)
+		action, shouldStop, err = ra.decideAction(ctx, thought)
 		if err != nil {
 			step.Error = fmt.Errorf("action decision failed: %w", err)
 			goto recordStep
@@ -161,8 +167,8 @@ func (ra *ReActAgent) Reason(ctx context.Context, prompt string, onStep func(*St
 			}
 
 			// Add tool result to context
-			if err := ra.contextManager.AddMessage(ctx, llm.RoleTool, step.Observation); err != nil {
-				step.Error = fmt.Errorf("failed to add tool result: %w", err)
+			if addErr := ra.contextManager.AddMessage(ctx, llm.RoleTool, step.Observation); addErr != nil {
+				step.Error = fmt.Errorf("failed to add tool result: %w", addErr)
 			}
 		}
 
@@ -175,7 +181,7 @@ func (ra *ReActAgent) Reason(ctx context.Context, prompt string, onStep func(*St
 		}
 
 		// Stop if we have a final answer
-		if shouldStop || result.Success || step.Error != nil && result.LoopDetected {
+		if shouldStop || result.Success || (step.Error != nil && result.LoopDetected) {
 			break
 		}
 	}

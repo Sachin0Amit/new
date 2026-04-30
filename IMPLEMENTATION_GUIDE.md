@@ -464,9 +464,9 @@ Areas for enhancement:
 - [ ] Distributed multi-GPU training
 - [ ] Function calling for OpenAI models
 - [ ] Retrieval augmentation with Qdrant
-- [ ] Knowledge graph construction
+- [x] Knowledge graph construction (`internal/knowledge/graph.go`)
 - [ ] Multi-modal input (images, audio)
-- [ ] Persistent conversation export
+- [x] Persistent conversation export (`/api/v1/export` + frontend export)
 
 ---
 
@@ -484,10 +484,12 @@ This is a **complete, production-ready autonomous AI system** with:
 - ✅ ReAct agent with tool use
 - ✅ Memory management
 - ✅ Security & audit trail
-- ✅ Modern web UI with voice I/O
+- ✅ Premium web UI with glassmorphism, particle background, voice I/O
 - ✅ Training pipeline with LoRA
 - ✅ Comprehensive evaluation
 - ✅ Docker deployment
+- ✅ Knowledge Graph with BFS traversal & triple ingestion
+- ✅ Persistent conversation export (JSON & Markdown)
 - ✅ Full documentation
 
 **Status**: READY FOR PRODUCTION DEPLOYMENT

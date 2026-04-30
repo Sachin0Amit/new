@@ -166,6 +166,7 @@ func main() {
 	mux.HandleFunc("/api/v1/chat", apiHandler.HandleChat)
 	mux.HandleFunc("/api/v1/tasks", apiHandler.HandleTasks)
 	mux.HandleFunc("/api/v1/status", apiHandler.HandleStatus)
+	mux.HandleFunc("/api/v1/export", apiHandler.HandleExport)
 
 	// WebSocket chat endpoint
 	wsHandler := api.NewWebSocketHandler(llmClient, reactAgent, nil)

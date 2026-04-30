@@ -17,7 +17,7 @@ ESLINT = npx eslint
 DOCKER = docker
 
 .PHONY: all build clean test lint dev docker-build docker-up docker-down docker-logs \
-        download-data finetune eval health-check help
+        download-data finetune eval health-check build-wasm distributed-train help
 
 all: build
 
@@ -90,6 +90,8 @@ help:
 	@echo "  make download-data - Download training datasets"
 	@echo "  make finetune      - Fine-tune model with LoRA"
 	@echo "  make eval          - Evaluate model"
+	@echo "  make build-wasm        - Compile C++ parser to WASM"
+	@echo "  make distributed-train - Multi-GPU training with DeepSpeed"
 	@echo "  make health-check  - Check health of all services"
 	@echo "  make clean         - Remove build artifacts"
 
@@ -156,3 +158,21 @@ health-check:
 	@echo "  Grafana:           http://localhost:3000"
 	@echo "  Prometheus:        http://localhost:9090"
 	@echo "  BadgerDB Explorer: http://localhost:8002"
+
+# 10. WASM Build Target
+build-wasm:
+	@echo "🔨 Building C++ Expression Parser to WASM..."
+	@chmod +x scripts/build_wasm.sh
+	@bash scripts/build_wasm.sh
+	@echo "✅ WASM build complete. Output in web/wasm/"
+
+# 11. Distributed Multi-GPU Training
+distributed-train:
+	@echo "🚀 Starting distributed multi-GPU training..."
+	@torchrun --nproc_per_node=$$(nvidia-smi -L 2>/dev/null | wc -l || echo 1) \
+		scripts/distributed_train.py \
+		--model mistralai/Mistral-7B-v0.1 \
+		--data data/training/train.jsonl \
+		--val_data data/training/val.jsonl \
+		--output checkpoints/distributed_lora
+	@echo "✅ Distributed training complete!"

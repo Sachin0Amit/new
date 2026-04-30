@@ -460,12 +460,12 @@ fmt.Println("Final answer:", result.FinalResponse)
 ## 🤝 Contributing
 
 Areas for enhancement:
-- [ ] WASM compilation of expression parser
-- [ ] Distributed multi-GPU training
-- [ ] Function calling for OpenAI models
-- [ ] Retrieval augmentation with Qdrant
+- [x] WASM compilation of expression parser (`scripts/build_wasm.sh`)
+- [x] Distributed multi-GPU training (`scripts/distributed_train.py`)
+- [x] Function calling for OpenAI models (`internal/llm/openai.go`)
+- [x] Retrieval augmentation with Qdrant (`internal/rag/qdrant.go`)
 - [x] Knowledge graph construction (`internal/knowledge/graph.go`)
-- [ ] Multi-modal input (images, audio)
+- [x] Multi-modal input (images, audio) (`internal/api/multimodal.go`)
 - [x] Persistent conversation export (`/api/v1/export` + frontend export)
 
 ---
@@ -487,9 +487,13 @@ This is a **complete, production-ready autonomous AI system** with:
 - ✅ Premium web UI with glassmorphism, particle background, voice I/O
 - ✅ Training pipeline with LoRA
 - ✅ Comprehensive evaluation
-- ✅ Docker deployment
 - ✅ Knowledge Graph with BFS traversal & triple ingestion
 - ✅ Persistent conversation export (JSON & Markdown)
+- ✅ WASM compilation of expression parser
+- ✅ Distributed multi-GPU training with DeepSpeed ZeRO-3
+- ✅ OpenAI-compatible LLM client with native function calling
+- ✅ Qdrant vector database integration
+- ✅ Multi-modal input handler (text + image/audio/video)
 - ✅ Full documentation
 
 **Status**: READY FOR PRODUCTION DEPLOYMENT

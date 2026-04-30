@@ -22,6 +22,7 @@ import (
 	"github.com/Sachin0Amit/new/internal/scheduler"
 	"github.com/Sachin0Amit/new/internal/telemetry"
 	"github.com/Sachin0Amit/new/internal/titan"
+	"github.com/Sachin0Amit/new/pkg/logger"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -149,7 +150,11 @@ func main() {
 		log.Fatalf("Core startup failed: %v", err)
 	}
 
-	// 10. Setup HTTP Server with API handlers
+	// 10. Initialize Logger
+	logger.Init(logger.Config{Level: "info", Production: false})
+	appLogger := logger.New()
+
+	// 11. Setup HTTP Server with API handlers
 	mux := http.NewServeMux()
 
 	// Health check
@@ -162,7 +167,7 @@ func main() {
 	mux.Handle("/metrics", promhttp.Handler())
 
 	// API handlers
-	apiHandler := api.NewHandler(sovCore, nil)
+	apiHandler := api.NewHandler(sovCore, appLogger)
 	mux.HandleFunc("/api/v1/chat", apiHandler.HandleChat)
 	mux.HandleFunc("/api/v1/tasks", apiHandler.HandleTasks)
 	mux.HandleFunc("/api/v1/status", apiHandler.HandleStatus)
@@ -170,11 +175,18 @@ func main() {
 	mux.HandleFunc("/api/v1/multimodal", apiHandler.HandleMultiModal)
 
 	// WebSocket chat endpoint
-	wsHandler := api.NewWebSocketHandler(llmClient, reactAgent, nil)
+	wsHandler := api.NewWebSocketHandler(llmClient, reactAgent, appLogger)
 	mux.HandleFunc("/ws/chat", wsHandler.HandleWebSocket)
 
 	// Static files
 	mux.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web"))))
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/" {
+			http.Redirect(w, r, "/web/index.html", http.StatusFound)
+			return
+		}
+		http.NotFound(w, r)
+	})
 
 	// Security middleware
 	rateLimiter := api.NewRateLimiter(3600, 100) // 60 req/min per IP

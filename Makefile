@@ -44,7 +44,7 @@ build-web:
 # 2. Development Target (Live Reload)
 dev:
 	@echo "🚀 Starting development environment..."
-	@ENV=dev $(GO) run ./cmd/sovereign/main.go
+	@LD_LIBRARY_PATH=$(PWD)/cpp/build/Release:$(PWD)/pkg/finance ENV=dev $(GO) run ./cmd/sovereign/main.go
 
 # 3. Test Target
 test:

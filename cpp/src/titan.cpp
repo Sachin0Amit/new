@@ -33,7 +33,7 @@ public:
         if (audit_callback) audit_callback("Path: Neural Pass");
         
         GenerateParams params;
-        std::string response = neural_engine.generate(prompt, params, [this](const std::string& token) {
+        std::string response = neural_engine.generate(prompt, params, [this](const std::string& /*token*/) {
             // Update context window with generated tokens
             // (In real impl, we'd convert text to token IDs first)
             uint16_t mock_token = 42; 

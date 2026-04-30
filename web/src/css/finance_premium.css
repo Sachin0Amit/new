@@ -1,0 +1,280 @@
+:root {
+    --f-bg: #030308;
+    --f-panel: rgba(13, 13, 25, 0.7);
+    --f-border: rgba(255, 255, 255, 0.05);
+    --f-accent: #00d4ff;
+    --f-up: #00e676;
+    --f-down: #ff5252;
+    --f-text: #e0e0e0;
+    --f-text-dim: #707070;
+}
+
+body.finance-mode {
+    background: var(--f-bg);
+    color: var(--f-text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 240px;
+    background: rgba(5, 5, 10, 0.95);
+    border-right: 1px solid var(--f-border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    backdrop-filter: blur(20px);
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.asset-selector h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--f-text-dim);
+    margin-bottom: 1rem;
+}
+
+.asset-item {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.asset-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.asset-item.active {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.3);
+    color: var(--f-accent);
+}
+
+.trend.up { color: var(--f-up); }
+.trend.down { color: var(--f-down); }
+
+.viewport {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: radial-gradient(circle at center, #0a0a1a 0%, #030308 100%);
+}
+
+.header {
+    height: 60px;
+    border-bottom: 1px solid var(--f-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.model-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--f-text-dim);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--f-up);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--f-up);
+}
+
+.dashboard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.price-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.terminal-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    min-height: 0;
+}
+
+.terminal-center {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: 0;
+}
+
+.panel {
+    background: var(--f-panel);
+    border: 1px solid var(--f-border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--f-border);
+}
+
+.chart-panel {
+    flex: 2;
+}
+
+.tabbed-panel {
+    flex: 1;
+}
+
+.tab-header {
+    display: flex;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--f-border);
+}
+
+.tab-btn {
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: var(--f-text-dim);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--f-accent);
+    border-bottom-color: var(--f-accent);
+}
+
+.tab-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.terminal-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.action-panel {
+    padding: 1.5rem;
+}
+
+.signal-box {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.signal-box.bullish {
+    background: rgba(0, 230, 118, 0.1);
+    color: var(--f-up);
+    border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.signal-box.bearish {
+    background: rgba(255, 82, 82, 0.1);
+    color: var(--f-down);
+    border: 1px solid rgba(255, 82, 82, 0.3);
+}
+
+.orderbook-panel {
+    flex: 1;
+}
+
+.dom-container {
+    padding: 1rem;
+}
+
+.dom-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+}
+
+.dom-spread {
+    background: rgba(255,255,255,0.05);
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: var(--f-accent);
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+    animation: fadeIn 0.5s ease-out forwards;
+}

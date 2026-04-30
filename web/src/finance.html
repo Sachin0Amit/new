@@ -3,150 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Finance Engine | Local Intelligence</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1D'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-family='serif' font-size='20' font-weight='700'>P</text></svg>">
+    <title>Sovereign Finance — Neural Trading Terminal</title>
+    <meta name="description" content="Professional-grade local finance terminal powered by Sovereign Intelligence Core.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;800&family=Inter:wght@400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     
-    <!-- TradingView Lightweight Charts -->
+    <!-- TradingView -->
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="finance.css">
-    <link rel="stylesheet" href="cursor.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="css/finance_premium.css">
+    <style>
+        /* Small overrides for specific elements */
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--f-text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: auto;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+    </style>
 </head>
 <body class="finance-mode">
     
-    <!-- Background Elements -->
-    <div id="finance-visualizer"></div>
-
-    <aside class="sidebar" style="background: rgba(10, 10, 15, 0.6); border-right: 1px solid rgba(255,255,255,0.05); color: #fff;">
-        <a href="index.html" class="logo" style="color: #fff;">PapiAi <span style="color: #00d4ff;">Finance</span></a>
+    <aside class="sidebar">
+        <a href="../index.html" class="logo">PapiAi <span style="color: var(--f-accent);">Finance</span></a>
         
         <div class="asset-selector">
             <h3>Active Markets</h3>
-            <div class="asset-item active" data-symbol="AAPL">AAPL <span class="trend up">▲</span></div>
-            <div class="asset-item" data-symbol="MSFT">MSFT <span class="trend down">▼</span></div>
-            <div class="asset-item" data-symbol="BTC">BTC-USD <span class="trend up">▲</span></div>
-            <div class="asset-item" data-symbol="ETH">ETH-USD <span class="trend up">▲</span></div>
+            <div class="asset-item active" data-symbol="AAPL">
+                <span>AAPL</span>
+                <span class="trend up">▲ 1.2%</span>
+            </div>
+            <div class="asset-item" data-symbol="MSFT">
+                <span>MSFT</span>
+                <span class="trend down">▼ 0.8%</span>
+            </div>
+            <div class="asset-item" data-symbol="BTC">
+                <span>BTC-USD</span>
+                <span class="trend up">▲ 4.5%</span>
+            </div>
+            <div class="asset-item" data-symbol="ETH">
+                <span>ETH-USD</span>
+                <span class="trend up">▲ 2.1%</span>
+            </div>
         </div>
 
-        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem;">
-             <a href="chat.html" class="history-item" style="color: #8E7CC3; font-weight: 600; text-decoration: none;">← Back to Core</a>
-        </div>
+        <a href="../index.html" class="back-link">
+            <i data-lucide="arrow-left"></i>
+            <span>Back to Portal</span>
+        </a>
     </aside>
 
     <main class="viewport">
         <header class="header">
             <div class="model-status">
                 <div class="status-dot"></div>
-                Local Quant Engine v1.0
+                <span>Local Quant Engine Active // v1.2.0</span>
             </div>
             <div class="header-tools" style="display: flex; gap: 1rem; align-items: center;">
-                <label class="auto-trade-toggle" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                    <span style="font-size: 0.9rem; font-weight: 600; color: #aaa;">AUTO-TRADE</span>
-                    <input type="checkbox" id="auto-trade-switch" style="accent-color: #00d4ff; width: 1.2rem; height: 1.2rem; cursor: pointer;">
-                </label>
-                <button class="win-btn" id="broker-login-btn" style="background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: #00d4ff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-family: 'Inter'; font-weight: 600;">Connect Broker</button>
-                <button class="win-btn" title="Refresh Model">↻</button>
+                <button class="btn-primary" id="broker-login-btn">Connect Broker</button>
+                <button class="btn-sidebar-action" style="background:transparent; border:1px solid var(--f-border); color:#fff; cursor:pointer; width:36px; height:36px; border-radius:8px;">
+                    <i data-lucide="refresh-cw" size="18"></i>
+                </button>
             </div>
         </header>
 
-        <div class="dashboard terminal-layout">
-            <div class="dashboard-header terminal-header">
-                <div style="display: flex; gap: 1rem; align-items: baseline;">
-                    <h1 id="ticker-symbol" style="margin: 0;">AAPL</h1>
+        <div class="dashboard">
+            <div class="terminal-header">
+                <div>
+                    <h1 id="ticker-symbol" style="font-family: 'Outfit'; font-size: 2.5rem; margin: 0;">AAPL</h1>
                     <div class="price-display">
-                        <span id="current-price" style="font-size: 1.5rem;">$150.00</span>
-                        <span class="price-change up" style="font-size: 1rem;">+1.24%</span>
+                        <span id="current-price" style="font-family: 'JetBrains Mono'; font-size: 1.8rem; font-weight: 700;">$150.00</span>
+                        <span class="trend up" style="font-size: 1.1rem; font-weight: 600;">+1.24%</span>
                     </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.8rem; color: var(--f-text-dim); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Market Cap</div>
+                    <div style="font-weight: 700; font-size: 1.2rem;">2.84T</div>
                 </div>
             </div>
 
             <div class="terminal-grid">
-                <!-- Center: Main Chart + Tabs -->
                 <div class="terminal-center">
-                    <div class="panel chart-panel" style="flex: 1; border-radius: 0; border-bottom: none;">
-                        <div class="panel-header" style="border-bottom: 1px solid #1a1a1a; padding-bottom: 0.5rem; margin-bottom: 0;">
-                            <h2 style="font-size: 0.9rem; color: #aaa;">Interactive Candlestick (TV)</h2>
-                            <div class="chart-controls">
-                                <button class="active">1M</button>
-                                <button>3M</button>
-                                <button>1Y</button>
+                    <div class="panel chart-panel">
+                        <div class="panel-header">
+                            <h2 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--f-text-dim);">Real-time Market Analytics</h2>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="tab-btn active">1M</button>
+                                <button class="tab-btn">1D</button>
+                                <button class="tab-btn">1W</button>
                             </div>
                         </div>
-                        <div class="chart-container" id="main-chart" style="height: calc(100% - 30px); width: 100%;">
-                            <!-- TV Chart will be injected here -->
-                        </div>
+                        <div id="main-chart" style="flex: 1; width: 100%;"></div>
                     </div>
 
-                    <!-- Bottom Tabbed Intel -->
-                    <div class="panel tabbed-panel" style="height: 250px; border-radius: 0; display: flex; flex-direction: column;">
-                        <div class="tab-header" style="display: flex; gap: 1rem; border-bottom: 1px solid #1a1a1a; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                    <div class="panel tabbed-panel">
+                        <div class="tab-header">
                             <button class="tab-btn active" data-target="tab-log">Execution Log</button>
-                            <button class="tab-btn" data-target="tab-news">News Sentiment</button>
-                            <button class="tab-btn" data-target="tab-fund">Fundamentals</button>
-                            <button class="tab-btn" data-target="tab-risk">Risk Profile</button>
+                            <button class="tab-btn" data-target="tab-news">Sentiment Feed</button>
+                            <button class="tab-btn" data-target="tab-risk">Risk Matrix</button>
                         </div>
-                        
-                        <div class="tab-content active" id="tab-log" style="flex: 1; overflow-y: auto; font-family: monospace; font-size: 0.85rem; color: #00e676;">
-                            <div id="trade-log">[SYSTEM] Trader Engine Ready. Please connect a broker.</div>
-                        </div>
-
-                        <div class="tab-content" id="tab-news" style="flex: 1; overflow-y: auto; display: none;">
-                            <div class="news-list" id="news-container" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
-                        </div>
-
-                        <div class="tab-content" id="tab-fund" style="flex: 1; overflow-y: auto; display: none;">
-                            <div class="metrics-grid">
-                                <div class="metric"><span class="label">Sovereign Rating</span><span class="value" id="fund-rating" style="color: #00d4ff;">--</span></div>
-                                <div class="metric"><span class="label">Total Score</span><span class="value" id="fund-score">--</span></div>
+                        <div class="tab-content active" id="tab-log">
+                            <div id="trade-log" style="font-family: 'JetBrains Mono'; color: var(--f-up); font-size: 0.9rem;">
+                                [SYSTEM] Sovereign Trader initialized. Listening for mDNS gossip...<br>
+                                [QUANT] Model mistral-quant-v4 loaded into VRAM.
                             </div>
-                            <p id="fund-reasoning" style="color: #888; font-size: 0.85rem; margin-top: 1rem; line-height: 1.4;"></p>
                         </div>
-
-                        <div class="tab-content" id="tab-risk" style="flex: 1; overflow-y: auto; display: none;">
-                            <div class="metrics-grid">
-                                <div class="metric"><span class="label">Sharpe Ratio</span><span class="value" id="risk-sharpe">--</span></div>
-                                <div class="metric"><span class="label">Annual Volatility</span><span class="value" id="risk-vol">--</span></div>
-                                <div class="metric"><span class="label">Max Drawdown</span><span class="value" id="risk-dd">--</span></div>
-                                <div class="metric"><span class="label">Value at Risk (95%)</span><span class="value" id="risk-var">--</span></div>
-                            </div>
+                        <div class="tab-content" id="tab-news" style="display:none;">
+                            <div id="news-container"></div>
+                        </div>
+                        <div class="tab-content" id="tab-risk" style="display:none;">
+                            <div id="risk-matrix"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Order Book & Action Panel -->
                 <div class="terminal-right">
-                    <div class="panel action-panel" style="border-radius: 0; flex: 0 0 auto;">
-                        <div class="panel-header" style="border-bottom: 1px solid #1a1a1a; padding-bottom: 0.5rem;">
-                            <h2 style="font-size: 0.9rem; color: #aaa;">Order Ticket</h2>
+                    <div class="panel action-panel">
+                        <div class="panel-header" style="border: none; padding-bottom: 0;">
+                            <h2 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--f-text-dim);">Neural Signal</h2>
                         </div>
-                        <div class="signal-box bullish" id="ai-signal" style="margin-top: 1rem; padding: 0.5rem; font-size: 1rem;">BULLISH</div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                            <input type="number" id="manual-qty" value="1" min="1" style="width: 60px; background: #111; color: #fff; border: 1px solid #333; border-radius: 4px; padding: 0.5rem; text-align: center;">
-                            <button id="btn-buy" style="flex: 1; background: #00e676; color: #000; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">BUY</button>
-                            <button id="btn-sell" style="flex: 1; background: #ff5252; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">SELL</button>
+                        <div class="signal-box bullish" id="ai-signal">STRONG BUY</div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: var(--f-text-dim);">Quantity</span>
+                                <input type="number" id="manual-qty" value="1" style="background: rgba(255,255,255,0.05); border: 1px solid var(--f-border); color: #fff; padding: 0.5rem; border-radius: 6px; width: 80px; text-align: center;">
+                            </div>
+                            <div style="display: flex; gap: 0.8rem;">
+                                <button id="btn-buy" style="flex: 1; background: var(--f-up); color: #000; border: none; padding: 1rem; border-radius: 8px; font-weight: 800; cursor: pointer;">BUY</button>
+                                <button id="btn-sell" style="flex: 1; background: var(--f-down); color: #fff; border: none; padding: 1rem; border-radius: 8px; font-weight: 800; cursor: pointer;">SELL</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="panel orderbook-panel" style="border-radius: 0; flex: 1; margin-top: 0; border-top: none; display: flex; flex-direction: column;">
-                        <div class="panel-header" style="border-bottom: 1px solid #1a1a1a; padding-bottom: 0.5rem;">
-                            <h2 style="font-size: 0.9rem; color: #aaa;">Market Depth (DOM)</h2>
+                    <div class="panel orderbook-panel">
+                        <div class="panel-header">
+                            <h2 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--f-text-dim);">Market Depth (DOM)</h2>
                         </div>
-                        <div class="dom-container" style="flex: 1; display: flex; flex-direction: column; font-family: monospace; font-size: 0.85rem; margin-top: 0.5rem;">
-                            <div class="dom-asks" id="dom-asks" style="display: flex; flex-direction: column-reverse; color: #ff5252; flex: 1; justify-content: flex-end;">
-                                <!-- Asks injected here -->
-                            </div>
-                            <div class="dom-spread" style="text-align: center; color: #fff; padding: 0.5rem 0; font-weight: bold; background: #1a1a1a; margin: 0.2rem 0;" id="dom-spread-price">
-                                $150.00
-                            </div>
-                            <div class="dom-bids" id="dom-bids" style="color: #00e676; flex: 1;">
-                                <!-- Bids injected here -->
-                            </div>
+                        <div class="dom-container">
+                            <div id="dom-asks" style="display: flex; flex-direction: column-reverse; color: var(--f-down); font-family: 'JetBrains Mono'; font-size: 0.85rem;"></div>
+                            <div class="dom-spread" id="dom-spread-price">$150.00</div>
+                            <div id="dom-bids" style="display: flex; flex-direction: column; color: var(--f-up); font-family: 'JetBrains Mono'; font-size: 0.85rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -154,34 +165,30 @@
         </div>
     </main>
 
-    <!-- Broker Login Modal -->
-    <div id="broker-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: #111; padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); width: 400px; max-width: 90%;">
-            <h2 style="margin-top: 0; font-family: 'Outfit';">Connect Broker</h2>
-            <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">Select your broker and enter API credentials. For testing, select "Paper Trading".</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <select id="broker-select" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 6px; font-family: 'Inter';">
+    <!-- Broker Modal -->
+    <div id="broker-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="panel" style="width: 400px; padding: 2rem;">
+            <h2 style="font-family: 'Outfit'; margin-top: 0;">Connect Broker</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                <select id="broker-select" style="background: var(--f-bg); color: #fff; border: 1px solid var(--f-border); padding: 0.8rem; border-radius: 8px;">
                     <option value="MOCK">Paper Trading (Mock)</option>
                     <option value="ZERODHA">Zerodha Kite</option>
                     <option value="BINANCE">Binance</option>
                 </select>
-                
-                <input type="text" id="broker-api-key" placeholder="API Key" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 6px; font-family: 'Inter';">
-                
-                <input type="password" id="broker-api-secret" placeholder="API Secret" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 6px; font-family: 'Inter';">
-                
+                <input type="text" placeholder="API Key" style="background: var(--f-bg); color: #fff; border: 1px solid var(--f-border); padding: 0.8rem; border-radius: 8px;">
+                <input type="password" placeholder="API Secret" style="background: var(--f-bg); color: #fff; border: 1px solid var(--f-border); padding: 0.8rem; border-radius: 8px;">
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button id="broker-cancel-btn" style="flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.8rem; border-radius: 6px; cursor: pointer;">Cancel</button>
-                    <button id="broker-connect-btn" style="flex: 1; background: #00d4ff; border: none; color: #000; font-weight: bold; padding: 0.8rem; border-radius: 6px; cursor: pointer;">Connect</button>
+                    <button id="broker-cancel-btn" style="flex: 1; background: transparent; color: #fff; border: 1px solid var(--f-border); padding: 0.8rem; border-radius: 8px; cursor: pointer;">Cancel</button>
+                    <button id="broker-connect-btn" class="btn-primary" style="flex: 1;">Connect</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="finance.js"></script>
+    <script type="module" src="js/finance.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

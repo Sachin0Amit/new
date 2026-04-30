@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Command Center // Fleet Intelligence</title>
+    <meta name="description" content="Unified management interface for the Sovereign Intelligence Core fleet.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/admin_premium.css">
+</head>
+<body>
+    <div id="app-container">
+        <aside class="sidebar">
+            <h2>Sovereign <span style="color: #fff; font-weight: 400; font-size: 0.8rem; letter-spacing: 1px;">Admin</span></h2>
+            
+            <nav style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+                <button class="nav-item active" onclick="showTab('fleet')">
+                    <i data-lucide="layers"></i>
+                    <span>Fleet Matrix</span>
+                </button>
+                <button class="nav-item" onclick="showTab('visualizer')">
+                    <i data-lucide="share-2"></i>
+                    <span>Reasoning DAG</span>
+                </button>
+                <button class="nav-item" onclick="showTab('reflex')">
+                    <i data-lucide="refresh-cw"></i>
+                    <span>Reflex Monitor</span>
+                </button>
+                <button class="nav-item" onclick="showTab('logs')">
+                    <i data-lucide="file-text"></i>
+                    <span>Audit Logs</span>
+                </button>
+
+                <a href="index.html" class="btn-back">
+                    <i data-lucide="arrow-left"></i>
+                    <span>Back to Portal</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-viewport">
+            <header class="top-header">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981;"></div>
+                    <h1 style="font-size: 1.1rem; font-weight: 600; margin: 0;">Global Network Operational</h1>
+                </div>
+                <div id="global-stats" style="display: flex; gap: 2rem;">
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.7rem; color: var(--a-text-dim); text-transform: uppercase;">Active Nodes</div>
+                        <div style="font-weight: 700;">12/12</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.7rem; color: var(--a-text-dim); text-transform: uppercase;">System Latency</div>
+                        <div style="font-weight: 700; color: #10b981;">24ms</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content" id="app-main">
+                <!-- Fleet Section -->
+                <section id="fleet-container" class="tab-content-root">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div class="card">
+                            <div class="card-title">
+                                <span>Resource Allocation</span>
+                                <i data-lucide="activity" size="14"></i>
+                            </div>
+                            <div class="metric-grid">
+                                <div class="metric-item">
+                                    <span class="metric-label">CPU Load</span>
+                                    <span class="metric-value">24.2%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Memory</span>
+                                    <span class="metric-value">8.4GB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <span>Mesh Health</span>
+                                <i data-lucide="shield" size="14"></i>
+                            </div>
+                            <div class="metric-grid">
+                                <div class="metric-item">
+                                    <span class="metric-label">Uptime</span>
+                                    <span class="metric-value">99.9%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Gossip Sync</span>
+                                    <span class="metric-value">Synced</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-title">
+                                <span>Fleet Connectivity Matrix</span>
+                                <i data-lucide="network" size="14"></i>
+                            </div>
+                            <div id="fleet-matrix-vis" style="height: 300px; background: rgba(0,0,0,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--a-text-dim); font-size: 0.9rem;">
+                                [D3.js Matrix Visualization Initializing...]
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DAG Section -->
+                <section id="graph-container" style="display: none;" class="tab-content-root">
+                    <div class="card" style="height: 100%;">
+                        <div class="card-title">
+                            <span>Reasoning Graph (DAG)</span>
+                            <i data-lucide="git-branch" size="14"></i>
+                        </div>
+                        <div id="dag-vis" style="height: 500px; display: flex; align-items: center; justify-content: center; color: var(--a-text-dim);">
+                            [D3.js DAG Visualization Engine Ready]
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reflex Section -->
+                <section id="reflex-container" style="display: none;" class="tab-content-root">
+                    <div class="card" style="height: 100%;">
+                        <div class="card-title">
+                            <span>Reflex Self-Correction Loop</span>
+                            <i data-lucide="refresh-cw" size="14"></i>
+                        </div>
+                        <div id="reflex-log" style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: #10b981; line-height: 1.6;">
+                            [16:15:22] SELF_AUDIT: Output verified against semantic constraints.<br>
+                            [16:15:10] REFLEX_REASONER: Anomaly detected in token probability distribution.<br>
+                            [16:15:10] RECURSIVE_FIX: Adjusting temperature from 0.7 to 0.4 for stability.
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -167,7 +167,7 @@ html,body{height:100%;overflow:hidden;font-family:'Inter',system-ui,sans-serif;b
 .btn-send:hover{transform:scale(1.05);box-shadow:0 0 16px var(--primary-glow)}
 .btn-send:active{transform:scale(.95)}
 .input-footer{display:flex;justify-content:center}
-.input-hint{font-size:10px;color:var(--text-3);letter-spacing:.3px}
+.input-hint{font-size:9px;color:var(--text-3);letter-spacing:.3px;opacity:0.4;text-transform:uppercase}
 
 /* ─── Modal ─── */
 .modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(6,6,15,.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;animation:fade-in .2s ease-out}

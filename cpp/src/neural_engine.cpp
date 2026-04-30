@@ -34,8 +34,8 @@ public:
         // llama_backend_free();
     }
 
-    std::string generate(const std::string& prompt, 
-                         GenerateParams params, 
+    std::string generate(const std::string& /*prompt*/, 
+                         GenerateParams /*params*/, 
                          std::function<void(const std::string&)> callback = nullptr) {
         
         std::cout << "[TITAN] Neural Pass: Generating for prompt..." << std::endl;

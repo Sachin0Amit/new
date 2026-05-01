@@ -98,6 +98,19 @@ help:
 # 7. Docker Compose Targets
 docker-up:
 	@echo "🚀 Starting all services with docker-compose..."
+
+# 8. Foundation Model (From Scratch)
+foundation-gen:
+	@echo "🧠 Generating Synthetic Intelligence Data..."
+	@cd papiai_foundation_model && python3 synthetic_data_generator.py
+
+foundation-train:
+	@echo "⚡ Compiling Neural Engine Matrix..."
+	@cd papiai_foundation_model && python3 train.py
+
+foundation-chat:
+	@echo "💬 Launching Sovereign Neural Inference..."
+	@cd papiai_foundation_model && python3 inference.py
 	@docker-compose up -d
 	@echo "✅ Services started. Dashboard at http://localhost:3000"
 

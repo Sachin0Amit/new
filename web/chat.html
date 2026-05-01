@@ -183,9 +183,9 @@
             <div class="modal-body">
                 <div class="setting-group">
                     <label class="setting-label">Inference Model</label>
-                    <select id="modelSelect" class="setting-select">
-                        <option value="local">Local — Ollama (Mistral-7B)</option>
-                        <option value="remote">Remote — OpenAI Compatible</option>
+                    <select id="modelSelect" class="setting-select" onchange="const s = JSON.parse(localStorage.getItem('sovereignSettings') || '{}'); s.model = this.value; localStorage.setItem('sovereignSettings', JSON.stringify(s));">
+                        <option value="local">Local — Smooth Streaming (Default)</option>
+                        <option value="agent">Autonomous ReAct Agent (Step-by-Step)</option>
                     </select>
                 </div>
                 <div class="setting-group">

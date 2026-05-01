@@ -1,36 +1,6 @@
 version: '3.8'
 
 services:
-  # Sovereign Core (Go Backend)
-  sovereign-core:
-    build:
-      context: .
-      dockerfile: deploy/Dockerfile
-    container_name: sovereign-core
-    ports:
-      - "8081:8081"
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
-      - DATABASE_PATH=/data/badger
-      - LOG_LEVEL=info
-      - SOVEREIGN_SECRET=dev_secret_key
-    volumes:
-      - sovereign-data:/data
-      - ./checkpoints:/checkpoints
-    depends_on:
-      ollama:
-        condition: service_healthy
-      prometheus:
-        condition: service_healthy
-    networks:
-      - sovereign-net
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # Ollama (Local LLM Server)
   ollama:
     image: ollama/ollama:latest
@@ -109,22 +79,6 @@ services:
       - prometheus
     networks:
       - sovereign-net
-    restart: unless-stopped
-
-  # BadgerDB Explorer (Database UI)
-  badger-explorer:
-    image: benreid/badger-explorer:latest
-    container_name: badger-explorer
-    ports:
-      - "8002:8002"
-    environment:
-      - BADGER_DIR=/data/badger
-    volumes:
-      - sovereign-data:/data
-    networks:
-      - sovereign-net
-    depends_on:
-      - sovereign-core
     restart: unless-stopped
 
 networks:

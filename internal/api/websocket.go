@@ -131,8 +131,11 @@ func (wh *WebSocketHandler) handleChatMessage(ctx context.Context, session *Chat
 		logger.String("message_preview", truncate(req.Message, 80)),
 	)
 
-	// Process with agent if available, otherwise use simple LLM
-	if wh.agent != nil {
+	// The user requested standard chat gpt behavior (no steps by default).
+	// We only use the ReAct agent if explicitly requested via Tier == "agent".
+	useAgent := req.Tier == "agent"
+
+	if wh.agent != nil && useAgent {
 		wh.handleWithAgent(ctx, session, req, messageID)
 	} else {
 		wh.handleWithLLM(ctx, session, req, messageID)
